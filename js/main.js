@@ -53,10 +53,6 @@ cardArray.forEach(function(card,index){
 //
 // how do we relate that and take further steps?
 
-
-
-
-
 let objs = [
     {card:'King Hearts',value: -13},
     {card:'King Clubs',value: 13},
@@ -74,6 +70,42 @@ let objs = [
     {card:'10 Clubs',value: 10},
     {card:'10 Spades',value: 10},
     {card:'10 Diamonds',value: -10},
+    {card:'9 Hearts',value: -9},
+    {card:'9 Clubs',value: 9},
+    {card:'9 Spades',value: 9},
+    {card:'9 Diamonds',value: -9},
+    {card:'8 Hearts',value: -8},
+    {card:'8 Clubs',value: 8},
+    {card:'8 Spades',value: 8},
+    {card:'8 Diamonds',value: -8},
+    {card:'7 Hearts',value: -7},
+    {card:'7 Clubs',value: 7},
+    {card:'7 Spades',value: 7},
+    {card:'7 Diamonds',value: -7},
+    {card:'6 Hearts',value: -6},
+    {card:'6 Clubs',value: 6},
+    {card:'6 Spades',value: 6},
+    {card:'6 Diamonds',value: -6},
+    {card:'5 Hearts',value: -5},
+    {card:'5 Clubs',value: 5},
+    {card:'5 Spades',value: 5},
+    {card:'5 Diamonds',value: -5},
+    {card:'4 Hearts',value: -4},
+    {card:'4 Clubs',value: 4},
+    {card:'4 Spades',value: 4},
+    {card:'4 Diamonds',value: -4},
+    {card:'3 Hearts',value: -3},
+    {card:'3 Clubs',value: 3},
+    {card:'3 Spades',value: 3},
+    {card:'3 Diamonds',value: -3},
+    {card:'2 Hearts',value: -2},
+    {card:'2 Clubs',value: 2},
+    {card:'2 Spades',value: 2},
+    {card:'2 Diamonds',value: -2},
+    {card:'A Hearts',value: -1},
+    {card:'A Clubs',value: 1},
+    {card:'A Spades',value: 1},
+    {card:'A Diamonds',value: -1},
 ]
 
 
