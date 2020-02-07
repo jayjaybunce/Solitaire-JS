@@ -74,36 +74,157 @@ let cards = [
 // CACHED ELEMENTS HERE
 const bodyEl = document.querySelector('body')
 const column7El = document.querySelector('#column7')
-const allCardEls = document.querySelectorAll('.card')
+const column6El = document.querySelector('#column6')
+const column5El = document.querySelector('#column5')
+const column4El = document.querySelector('#column4')
+const column3El = document.querySelector('#column3')
+const column2El = document.querySelector('#column2')
+const column1El = document.querySelector('#column1')
 const gameBoardEl = document.querySelector('#gameBoard')
+const playBtnEl = document.querySelector('#play-btn')
 //EVENT LISTENERS
-gameBoardEl.addEventListener('click',function(evt){
-    let tarEl = evt.target
-    if(tarEl.className !== 'card'){
-        return;
-    }  
+playBtnEl.addEventListener('click',function(evt){
+    renderColumn7();
+    renderColumn6();
+    renderColumn5();
+    renderColumn4();
+    renderColumn3();
+    renderColumn2();
+    renderColumn1();
+    expandColums();
 })
-
-/// FUNCTION EXPRESSIONS
-const createCard = (varname,dataId,name) => {
-    varName = document.createElement('div');
-    varName.setAttribute('data-id',dataId);
-    varName.textContent = name;
-    console.dir(varName)
-    bodyEl.appendChild(varName);
-}
-
-////////////////////////
-/////LEFT OFF HERE//////
-///////////////////////
-// FUNCTION DECLARATIONS
-function assignCardValues(dataSet){
-    dataSet.forEach(card=>{
-        console.log(card)
-        card.style.backgroundColor = 'red'
+    
+    gameBoardEl.addEventListener('click',function(evt){
+        let tarEl = evt.target
+        if(tarEl.className !== 'card'){
+            return;
+        }  
     })
+    
+    
+    
+    /// FUNCTION EXPRESSIONS
+    const createCard = (varname,dataId,name) => {
+        varName = document.createElement('div');
+        varName.setAttribute('data-id',dataId);
+        varName.textContent = name;
+        console.dir(varName)
+        bodyEl.appendChild(varName);
+    }
+    
+    ////////////////////////
+    /////LEFT OFF HERE//////
+    ///////////////////////
+    // FUNCTION DECLARATIONS
 
-}
+    function expandColums(){
+        let cardEls;
+        let cols = document.querySelectorAll('#column7,#column6,#column5,#column4,#column3,#column2,#column1')
+        cardEls = document.querySelectorAll('#column7 .card,#column6 .card,#column5 .card,#column4 .card,#column3 .card,#column2 .card,#column1 .card')
+        cols.forEach(col=>{
+            col.style.marginTop = '30px'
+        })
+        setTimeout(function(){
+
+            cardEls.forEach(card=>{
+                
+                card.style.marginTop = '-30px'
+            })
+        },1000)
+    }
+    function renderColumn7(){
+        let inc = 7;
+        while(inc > 0){
+            let lastIndex = document.querySelectorAll('#gameBoard .card').length -1
+            let cardToMove = document.querySelectorAll('#gameBoard .card')[lastIndex]
+            window.getComputedStyle(cardToMove)
+            column7El.appendChild(cardToMove)
+        inc--
+        }
+    };
+    function renderColumn6(){
+        let inc = 6;
+        while(inc > 0){
+            let lastIndex = document.querySelectorAll('#gameBoard .card').length -1
+            let cardToMove = document.querySelectorAll('#gameBoard .card')[lastIndex]
+            column6El.appendChild(cardToMove)
+        inc--
+        }
+    };
+    function renderColumn5(){
+        let inc = 5;
+        while(inc > 0){
+            let lastIndex = document.querySelectorAll('#gameBoard .card').length -1
+            let cardToMove = document.querySelectorAll('#gameBoard .card')[lastIndex]
+            column5El.appendChild(cardToMove)
+        inc--
+        }
+    };
+    function renderColumn4(){
+        let inc = 4;
+        while(inc > 0){
+            let lastIndex = document.querySelectorAll('#gameBoard .card').length -1
+            let cardToMove = document.querySelectorAll('#gameBoard .card')[lastIndex]
+            column4El.appendChild(cardToMove)
+        inc--
+        }
+    };
+    function renderColumn3(){
+        let inc = 3;
+        while(inc > 0){
+            let lastIndex = document.querySelectorAll('#gameBoard .card').length -1
+            let cardToMove = document.querySelectorAll('#gameBoard .card')[lastIndex]
+            column3El.appendChild(cardToMove)
+        inc--
+        }
+    };
+    function renderColumn2(){
+        let inc = 2;
+        while(inc > 0){
+            let lastIndex = document.querySelectorAll('#gameBoard .card').length -1
+            let cardToMove = document.querySelectorAll('#gameBoard .card')[lastIndex]
+            column2El.appendChild(cardToMove)
+        inc--
+        }
+    };
+    function renderColumn1(){
+        let inc = 1;
+        while(inc > 0){
+            let lastIndex = document.querySelectorAll('#gameBoard .card').length -1
+            let cardToMove = document.querySelectorAll('#gameBoard .card')[lastIndex]
+            column1El.appendChild(cardToMove)
+        inc--
+        }
+    };
+
+    
+
+    function renderCards(dataSet){
+        dataSet.forEach(element=>{
+            cardEl = document.createElement('div')
+            cardEl.setAttribute('data-card',element.card)
+            cardEl.setAttribute('class','card')
+            gameBoardEl.appendChild(cardEl)
+        })
+    }
+    
+    
+    render();
+    renderCards(cards);
+    
+    
+    
+    const allCardEls = document.querySelectorAll('.card')
+    
+
+
+
+
+
+
+
+
+
 function shuffleCards(cardsArray){
     for(let i = cardsArray.length - 1; i > 0; i--){
         const j = Math.floor(Math.random() * i)
@@ -115,7 +236,7 @@ function shuffleCards(cardsArray){
 function setCards(){
     setTimeout(function(){
     allCardEls.forEach(cardEl => {
-        cardEl.style.marginTop = '-30px'
+        // cardEl.style.marginTop = '-30px'
     })
 },1000)
 }
@@ -128,5 +249,12 @@ function render(){
 
 // console.log(cards)
 
-render();
 
+
+
+let testObj = [
+    {card:'A Hearts',value: -1,faceup:false,active:false},
+    {card:'A Clubs',value: 1,faceup:false,active:false},
+    {card:'A Spades',value: 1,faceup:false,active:false},
+    {card:'A Diamonds',value: -1,faceup:false,active:false},
+]
