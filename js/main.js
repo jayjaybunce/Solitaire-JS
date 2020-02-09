@@ -94,6 +94,11 @@ let clickedElements =[];
 let deckEl = document.querySelector('#deck')
 let faceUpDeckEl = document.querySelector('#face-up-deck')
 let placeHolderEls = document.querySelectorAll('.card-placeholder')
+let suiteDeckEls = document.querySelectorAll('#deck-diamonds,#deck-hearts,#deck-spades,#deck-clubs')
+let spadesDeckEl = document.querySelector('#deck-spades')
+let heartsDeckEl = document.querySelector('#deck-hearts')
+let diamondsDeckEl = document.querySelector('#deck-diamonds')
+let clubsDeckEl = document.querySelector('#deck-clubs')
 //EVENT LISTENERS
 
 deckEl.addEventListener('click',function(evt){
@@ -142,6 +147,33 @@ faceUpDeckEl.addEventListener('click',function(evt){
 
 
         clickedElements.push(evt.target)
+        if(tarEl.getAttribute('data-card').includes('A')){
+            if(tarEl.getAttribute('data-card').includes('Spades')){
+                    spadesDeckEl.addEventListener('click',function(){
+                        tarEl.style.marginTop = '0'
+                        spadesDeckEl.appendChild(tarEl)
+                        renderFaceUps()
+                    })      
+            }else if(tarEl.getAttribute('data-card').includes('Clubs')){
+                clubsDeckEl.addEventListener('click',function(){
+                    tarEl.style.marginTop = '0'
+                    clubsDeckEl.append(tarEl)
+                    renderFaceUps()
+                })
+            }else if(tarEl.getAttribute('data-card').includes('Hearts')){
+                heartsDeckEl.addEventListener('click',function(){
+                    tarEl.style.marginTop = '0'
+                    heartsDeckEl.append(tarEl)
+                    renderFaceUps()
+            })
+        }else if(tarEl.getAttribute('data-card').includes('Diamonds')){
+            diamondsDeckEl.addEventListener('click',function(){
+                tarEl.style.marginTop = '0'
+                diamondsDeckEl.append(tarEl)
+                renderFaceUps()
+            })
+    }
+}
         if(tarEl.getAttribute('data-card').includes('King') && checkColumns() === true){
             console.log('stuck 1')
             if(column1El.children.length === 0){
@@ -180,6 +212,7 @@ faceUpDeckEl.addEventListener('click',function(evt){
                 column7El.appendChild(tarEl)
                 return clickedElements = [], clicked = [];
             }
+            renderFaceUps();
             return clickedElements = [], clicked = [];
         }
     
@@ -238,6 +271,7 @@ playBtnEl.addEventListener('click',function(evt){
             el.style.marginTop = '-30px'
             el.style.visibility = 'visible'
         })
+        renderSuitePiles();
     },2000)
     renderColumn7();
     renderColumn6();
@@ -254,6 +288,8 @@ playBtnEl.addEventListener('click',function(evt){
 
     
 })
+
+
     
     gameBoardEl.addEventListener('click',function(evt){
         let tarEl = evt.target
@@ -275,6 +311,33 @@ playBtnEl.addEventListener('click',function(evt){
         let cardValue = cards[clickedCardValue].value
         clicked.push(cardValue)
         clickedElements.push(evt.target)
+        if(tarEl.getAttribute('data-card').includes('A')){
+            if(tarEl.getAttribute('data-card').includes('Spades')){
+                    spadesDeckEl.addEventListener('click',function(){
+                        tarEl.style.marginTop = '0'
+                        spadesDeckEl.appendChild(tarEl)
+                        renderFaceUps()
+                    })      
+            }else if(tarEl.getAttribute('data-card').includes('Clubs')){
+                clubsDeckEl.addEventListener('click',function(){
+                    tarEl.style.marginTop = '0'
+                    clubsDeckEl.append(tarEl)
+                    renderFaceUps()
+                })
+            }else if(tarEl.getAttribute('data-card').includes('Hearts')){
+                heartsDeckEl.addEventListener('click',function(){
+                    tarEl.style.marginTop = '0'
+                    heartsDeckEl.append(tarEl)
+                    renderFaceUps()
+            })
+        }else if(tarEl.getAttribute('data-card').includes('Diamonds')){
+            diamondsDeckEl.addEventListener('click',function(){
+                tarEl.style.marginTop = '0'
+                diamondsDeckEl.append(tarEl)
+                renderFaceUps()
+            })
+    }
+}
         if(tarEl.getAttribute('data-card').includes('King') && checkColumns() === true){
 
                 if(column1El.children.length === 0){
@@ -312,7 +375,9 @@ playBtnEl.addEventListener('click',function(evt){
                     column7El.appendChild(tarEl)
                     return clickedElements = [], clicked = [];
                 }
+                renderFaceUps();
                 return clickedElements = [], clicked = [];
+
             }
         
         if(clicked.length === 2){
@@ -477,6 +542,15 @@ function renderDeck(){
     inc--
     }
 };
+
+
+
+
+function renderSuitePiles(){
+    suiteDeckEls.forEach(deck=>{
+        deck.style.visibility = 'visible'
+    })
+}
 function renderColumn7(){
     let inc = 7;
     while(inc > 0){

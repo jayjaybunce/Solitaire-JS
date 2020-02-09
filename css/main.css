@@ -305,4 +305,65 @@ body{
 
 }
 
+#deck-diamonds{
+    background-color:blue ;
+    height: 100px;
+    width: 80px;
+    position: absolute;
+    margin-top: 0;
+    background-size: 80px 100px;
+    background-repeat: no-repeat;
+    border-radius: 7px;
+    margin-left: 880px;
+    -webkit-box-shadow: 0px 0px 20px -1px rgba(0,0,0,0.94); 
+    box-shadow: 0px 0px 20px -1px rgba(0,0,0,0.94);
+    visibility: hidden;
+    background-image: url('../card_images/diamonds.png');
+}
+#deck-hearts{
+    background-color:pink ;
+    height: 100px;
+    width: 80px;
+    position: absolute;
+    margin-top: 135px;
+    -webkit-box-shadow: 0px 0px 20px -1px rgba(0,0,0,0.94); 
+    box-shadow: 0px 0px 20px -1px rgba(0,0,0,0.94);
+    background-size: 80px 100px;
+    background-repeat: no-repeat;
+    border-radius: 7px;
+    margin-left: 880px;
+    visibility: hidden;
+    background-image: url('../card_images/hearts.png');
+}
+#deck-spades{
+    background-color:maroon ;
+    height: 100px;
+    width: 80px;
+    border-radius: 7px;
+    position: absolute;
+    margin-top: 265px;
+    background-size: 80px 100px;
+    background-repeat: no-repeat;
+    margin-left: 880px;
+    -webkit-box-shadow: 0px 0px 20px -1px rgba(0,0,0,0.94); 
+    box-shadow: 0px 0px 20px -1px rgba(0,0,0,0.94);
+    visibility: hidden;
+    background-image: url('../card_images/spades.png');
+}
+#deck-clubs{
+    background-color:aqua ;
+    height: 100px;
+    width: 80px;
+    position: absolute;
+    border-radius: 7px;
+    visibility: hidden;
+    background-size: 80px 100px;
+    background-repeat: no-repeat;
+    margin-top: 400px;
+    margin-left: 880px;
+    -webkit-box-shadow: 0px 0px 20px -1px rgba(0,0,0,0.94); 
+    box-shadow: 0px 0px 20px -1px rgba(0,0,0,0.94);
+    background-image: url('../card_images/clubs.png');
+}
+
     /* margin-top: -30px; */
