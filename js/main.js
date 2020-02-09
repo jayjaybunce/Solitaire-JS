@@ -18,7 +18,7 @@ class CARD {
 let deck = [];
 let faceUpDeck = []
 
-let columnChecker = ['column1','column2','column3','column4','column5','column6','column7']
+let columnChecker = ['column1','column2','column3','column4','column5','column6','column7','deck-spades','deck-hearts','deck-clubs','deck-diamonds','gameBoard']
 
 let cards = [
     {card:'King Hearts',value: -13,faceup:false,active:false,url: '../card_images/KH.jpg'},
@@ -87,7 +87,7 @@ let column3El;
 let column2El;
 let column1El;
 let clicked = [];
-let allColumns = document.querySelectorAll('#column7,#column6,#column5,#column4,#column3,#column2,#column1')
+let allColumns = document.querySelectorAll('#column7,#column6,#column5,#column4,#column3,#column2,#column1,#deck-spades,#deck-hearts,#deck-diamonds,#deck-clubs')
 let gameBoardEl = document.querySelector('#gameBoard')
 let playBtnEl = document.querySelector('#play-btn')
 let clickedElements =[];
@@ -99,6 +99,7 @@ let spadesDeckEl = document.querySelector('#deck-spades')
 let heartsDeckEl = document.querySelector('#deck-hearts')
 let diamondsDeckEl = document.querySelector('#deck-diamonds')
 let clubsDeckEl = document.querySelector('#deck-clubs')
+let darkModeBtnEl = document.querySelector('#dark-mode-btn')
 //EVENT LISTENERS
 
 deckEl.addEventListener('click',function(evt){
@@ -153,25 +154,32 @@ faceUpDeckEl.addEventListener('click',function(evt){
                         tarEl.style.marginTop = '0'
                         spadesDeckEl.appendChild(tarEl)
                         renderFaceUps()
+                        return clicked =[],clickedElements=[];
                     })      
             }else if(tarEl.getAttribute('data-card').includes('Clubs')){
                 clubsDeckEl.addEventListener('click',function(){
                     tarEl.style.marginTop = '0'
                     clubsDeckEl.append(tarEl)
                     renderFaceUps()
+                    return clicked =[],clickedElements=[];
                 })
             }else if(tarEl.getAttribute('data-card').includes('Hearts')){
                 heartsDeckEl.addEventListener('click',function(){
                     tarEl.style.marginTop = '0'
                     heartsDeckEl.append(tarEl)
                     renderFaceUps()
+                    return clicked =[],clickedElements=[];
             })
         }else if(tarEl.getAttribute('data-card').includes('Diamonds')){
             diamondsDeckEl.addEventListener('click',function(){
                 tarEl.style.marginTop = '0'
                 diamondsDeckEl.append(tarEl)
                 renderFaceUps()
+                return clicked =[],clickedElements=[];
             })
+        
+    }else{
+        return clicked =[],clickedElements=[];
     }
 }
         if(tarEl.getAttribute('data-card').includes('King') && checkColumns() === true){
@@ -231,7 +239,48 @@ faceUpDeckEl.addEventListener('click',function(evt){
                 renderFaceUps();
                 return clickedElements = [], clicked = [],moves;
                 
+            }else if(clickedElements[0].getAttribute('data-card').includes('Hearts')&&clickedElements[1].getAttribute('data-card').includes('Hearts')){
+                console.log('Waiting..')
+                console.log(a-b)
+                if((a-b)===1){
+                    tarEl.style.marginTop = '0'
+                    heartsDeckEl.append(tarEl)
+                    return clickedElements = [],clicked=[];
+                }else{
+                    return clickedElements = [],clicked=[];
+                }
+            }else if(clickedElements[0].getAttribute('data-card').includes('Diamonds')&&clickedElements[1].getAttribute('data-card').includes('Diamonds')){
+                console.log('Waiting..')
+                console.log(a-b)
+                if((a-b)===1){
+                    tarEl.style.marginTop = '0'
+                    diamondsDeckEl.append(tarEl)
+                    return clickedElements = [],clicked=[];
+                }else{
+                    return clickedElements = [],clicked=[];
+                }
+            }else if(clickedElements[0].getAttribute('data-card').includes('Clubs')&&clickedElements[1].getAttribute('data-card').includes('Clubs')){
+                console.log('Waiting..')
+                console.log(a-b)
+                if((a-b)===-1){
+                    tarEl.style.marginTop = '0'
+                    clubsDeckEl.append(tarEl)
+                    return clickedElements = [],clicked=[];
+                }else{
+                    return clickedElements = [],clicked=[];
+                }
+            }else if(clickedElements[0].getAttribute('data-card').includes('Spades')&&clickedElements[1].getAttribute('data-card').includes('Spades')){
+                console.log('Waiting..')
+                console.log(a-b)
+                if((a-b)===-1){
+                    tarEl.style.marginTop = '0'
+                    spadesDeckEl.append(tarEl)
+                    return clickedElements = [],clicked=[];
+                }else{
+                    return clickedElements = [],clicked=[];
+                }
             }else{
+                
                 console.log('MATCH NOT FOUND between,',a,b)
                 return clickedElements = [],clicked = [];
         }   
@@ -291,15 +340,17 @@ playBtnEl.addEventListener('click',function(evt){
 
 
     
-    gameBoardEl.addEventListener('click',function(evt){
+    bodyEl.addEventListener('click',function(evt){
         let tarEl = evt.target
         let cardId = evt.target.getAttribute('data-card')
         let targParentEl = `${evt.target.parentElement.id}`
+        console.log(targParentEl)
         
         
-        
-        if(tarEl.className !== 'card'|| !(columnChecker.includes(targParentEl))){
-            
+        if(tarEl.className !== 'card'|| (columnChecker.includes(targParentEl)===false)){
+            console.log(columnChecker.includes(targParentEl))
+            console.log('not valid')
+            console.log(targParentEl)
            
             return;
           
@@ -317,25 +368,32 @@ playBtnEl.addEventListener('click',function(evt){
                         tarEl.style.marginTop = '0'
                         spadesDeckEl.appendChild(tarEl)
                         renderFaceUps()
+                        return clicked =[],clickedElements=[];
                     })      
             }else if(tarEl.getAttribute('data-card').includes('Clubs')){
                 clubsDeckEl.addEventListener('click',function(){
                     tarEl.style.marginTop = '0'
                     clubsDeckEl.append(tarEl)
                     renderFaceUps()
+                    return clicked =[],clickedElements=[];
                 })
             }else if(tarEl.getAttribute('data-card').includes('Hearts')){
                 heartsDeckEl.addEventListener('click',function(){
                     tarEl.style.marginTop = '0'
                     heartsDeckEl.append(tarEl)
                     renderFaceUps()
+                    return clicked =[],clickedElements=[];
             })
         }else if(tarEl.getAttribute('data-card').includes('Diamonds')){
             diamondsDeckEl.addEventListener('click',function(){
                 tarEl.style.marginTop = '0'
                 diamondsDeckEl.append(tarEl)
                 renderFaceUps()
+                return clicked =[],clickedElements=[];
             })
+            return clicked =[],clickedElements=[];
+    }else{
+        return clicked =[],clickedElements=[];
     }
 }
         if(tarEl.getAttribute('data-card').includes('King') && checkColumns() === true){
@@ -343,36 +401,43 @@ playBtnEl.addEventListener('click',function(evt){
                 if(column1El.children.length === 0){
                     tarEl.style.marginTop = '-30px'
                     column1El.appendChild(tarEl)
+                    renderFaceUps();
                     return clickedElements = [], clicked = [];
                 }
                 if(column2El.children.length === 0){
                     tarEl.style.marginTop = '-30px'
                     column2El.appendChild(tarEl)
+                    renderFaceUps();
                     return clickedElements = [], clicked = [];
                 }
                 if(column3El.children.length === 0){
                     tarEl.style.marginTop = '-30px'
                     column3El.appendChild(tarEl)
+                    renderFaceUps();
                     return clickedElements = [], clicked = [];
                 }
                 if(column4El.children.length === 0){
                     tarEl.style.marginTop = '-30px'
                     column4El.appendChild(tarEl)
+                    renderFaceUps();
                     return clickedElements = [], clicked = [];
                 }
                 if(column5El.children.length === 0){
                     tarEl.style.marginTop = '-30px'
                     column5El.appendChild(tarEl)
+                    renderFaceUps();
                     return clickedElements = [], clicked = [];
                 }
                 if(column6El.children.length === 0){
                     tarEl.style.marginTop = '-30px'
                     column6El.appendChild(tarEl)
+                    renderFaceUps();
                     return clickedElements = [], clicked = [];
                 }
                 if(column7El.children.length === 0){
                     tarEl.style.marginTop = '-30px'
                     column7El.appendChild(tarEl)
+                    renderFaceUps();
                     return clickedElements = [], clicked = [];
                 }
                 renderFaceUps();
@@ -387,6 +452,7 @@ playBtnEl.addEventListener('click',function(evt){
             aAbs = Math.abs(a)
             bAbs = Math.abs(b)
             if(a+b === -1 || a+b === 1){
+                console.log(clickedElements[0].getAttribute('data-card'))
                 clicked = [];
                 clickedElements[0].style.marginTop = '-30px'
                 clickedElements[1].parentElement.appendChild(clickedElements[0])
@@ -395,6 +461,46 @@ playBtnEl.addEventListener('click',function(evt){
                 renderFaceUps();
                 return clickedElements = [], clicked = [],moves;
                 
+            }else if(clickedElements[0].getAttribute('data-card').includes('Hearts')&&clickedElements[1].getAttribute('data-card').includes('Hearts')){
+                console.log('Waiting..')
+                console.log(a-b)
+                if((a-b)===1){
+                    tarEl.style.marginTop = '0'
+                    heartsDeckEl.append(tarEl)
+                    return clickedElements = [],clicked=[];
+                }else{
+                    return clickedElements = [],clicked=[];
+                }
+            }else if(clickedElements[0].getAttribute('data-card').includes('Diamonds')&&clickedElements[1].getAttribute('data-card').includes('Diamonds')){
+                console.log('Waiting..')
+                console.log(a-b)
+                if((a-b)===1){
+                    tarEl.style.marginTop = '0'
+                    diamondsDeckEl.append(tarEl)
+                    return clickedElements = [],clicked=[];
+                }else{
+                    return clickedElements = [],clicked=[];
+                }
+            }else if(clickedElements[0].getAttribute('data-card').includes('Clubs')&&clickedElements[1].getAttribute('data-card').includes('Clubs')){
+                console.log('Waiting..')
+                console.log(a-b)
+                if((a-b)===-1){
+                    tarEl.style.marginTop = '0'
+                    clubsDeckEl.append(tarEl)
+                    return clickedElements = [],clicked=[];
+                }else{
+                    return clickedElements = [],clicked=[];
+                }
+            }else if(clickedElements[0].getAttribute('data-card').includes('Spades')&&clickedElements[1].getAttribute('data-card').includes('Spades')){
+                console.log('Waiting..')
+                console.log(a-b)
+                if((a-b)===-1){
+                    tarEl.style.marginTop = '0'
+                    spadesDeckEl.append(tarEl)
+                    return clickedElements = [],clicked=[];
+                }else{
+                    return clickedElements = [],clicked=[];
+                }
             }else{
                 console.log('MATCH NOT FOUND between,',a,b)
                 return clickedElements = [],clicked = [];
@@ -681,3 +787,22 @@ let testObj = [
 // findMatch(8,-7)
 // findMatch(-7,8)
 // findMatch(1,-2)
+
+
+
+
+
+
+
+
+
+bodyEl.style.backgroundColor = 'white'
+
+darkModeBtnEl.addEventListener('click',function(evt){
+    if(bodyEl.style.backgroundColor === 'white'){
+        bodyEl.style.backgroundColor = 'black'
+        console.log('Initiating dark mode')
+    }else{
+        bodyEl.style.backgroundColor = 'white'
+    }
+})
