@@ -15,6 +15,10 @@ class CARD {
         this.active = true;
     }
 }
+let deck = [];
+let faceUpDeck = []
+
+let columnChecker = ['column1','column2','column3','column4','column5','column6','column7']
 
 let cards = [
     {card:'King Hearts',value: -13,faceup:false,active:false,url: '../card_images/KH.jpg'},
@@ -25,7 +29,7 @@ let cards = [
     {card:'Queen Clubs',value: 12,faceup:false,active:false,url: '../card_images/QC.jpg'},
     {card:'Queen Spades',value: 12,faceup:false,active:false,url: '../card_images/QS.jpg'},
     {card:'Queen Diamonds',value: -12,faceup:false,active:false,url: '../card_images/QD.jpg'},
-    {card:'Jack Hearts',value: -11,faceup:false,active:false,url: '../card_images/JS.jpg'},
+    {card:'Jack Hearts',value: -11,faceup:false,active:false,url: '../card_images/JH.jpg'},
     {card:'Jack Clubs',value: 11,faceup:false,active:false,url: '../card_images/JC.jpg'},
     {card:'Jack Spades',value: 11,faceup:false,active:false,url: '../card_images/JS.jpg'},
     {card:'Jack Diamonds',value: -11,faceup:false,active:false,url: '../card_images/JD.jpg'},
@@ -67,12 +71,14 @@ let cards = [
     {card:'2 Diamonds',value: -2,faceup:false,active:false,url: '../card_images/2D.jpg'},
     {card:'A Hearts',value: -1,faceup:false,active:false,url: '../card_images/AH.jpg'},
     {card:'A Clubs',value: 1,faceup:false,active:false,url: '../card_images/AC.jpg'},
+    {card:'A Diamonds',value: -1,faceup:false,active:false,url: '../card_images/AceD.jpg'},
     {card:'A Spades',value: 1,faceup:false,active:false,url: '../card_images/AS.jpg'},
-    {card:'A Diamonds',value: -1,faceup:false,active:false,url: '../card_images/AD.jpg'}
 ]
 ///////////////////////////////////////////////
 // CACHED ELEMENTS HERE
 const bodyEl = document.querySelector('body')
+let moves = 0;
+let movesEl = document.querySelector('#moves h3')
 let column7El;
 let column6El;
 let column5El;
@@ -81,49 +87,102 @@ let column3El;
 let column2El;
 let column1El;
 let clicked = [];
+let allColumns = document.querySelectorAll('#column7,#column6,#column5,#column4,#column3,#column2,#column1')
 let gameBoardEl = document.querySelector('#gameBoard')
 let playBtnEl = document.querySelector('#play-btn')
 let clickedElements =[];
+let deckEl = document.querySelector('#deck')
+let faceUpDeckEl = document.querySelector('#face-up-deck')
+let placeHolderEls = document.querySelectorAll('.card-placeholder')
 //EVENT LISTENERS
 
+deckEl.addEventListener('click',function(evt){
+     if(deckEl.childElementCount > 0){
 
-
-
-
-
-
-
-
-playBtnEl.addEventListener('click',function(evt){
-    renderColumn7();
-    renderColumn6();
-    renderColumn5();
-    renderColumn4();
-    renderColumn3();
-    renderColumn2();
-    renderColumn1();
-    expandColums();
-    setTimeout(function(){
-        renderFaceUps();
-    },2000)
-})
+        let id = evt.target.getAttribute('data-card')
     
-    gameBoardEl.addEventListener('click',function(evt){
-        let tarEl = evt.target
+        let cardIndex = cards.findIndex(el=>{
+            return el.card === id
+        })
+       
+        let newBg = cards[cardIndex].url
+        evt.target.style.backgroundImage = `url('${newBg}')`
+        faceUpDeckEl.appendChild(evt.target)
+
+     }else{
+        console.log('starting swap')
+        let inc = 24;
+        while(inc > 0){
+            let swapCard = faceUpDeckEl.lastChild
+            swapCard.style.backgroundImage = 'url(../card_images/blue_back.jpg)'
+            deckEl.appendChild(swapCard)
+        inc--
+        }
+     }
+
+})
+
+faceUpDeckEl.addEventListener('click',function(evt){
+    let tarEl = evt.target
         let cardId = evt.target.getAttribute('data-card')
+        let targParentEl = `${evt.target.parentElement.id}`
+        
+        
         if(tarEl.className !== 'card'){
+            console.log(tarEl,'is not a card')
             return;
           
         }
-        ////get values from the clicked cards a based on their names.
-        console.log(cardId)
+    
         let clickedCardValue = cards.findIndex(el=>{
             return el.card === cardId
         }) 
         let cardValue = cards[clickedCardValue].value
         clicked.push(cardValue)
 
+
         clickedElements.push(evt.target)
+        if(tarEl.getAttribute('data-card').includes('King') && checkColumns() === true){
+            console.log('stuck 1')
+            if(column1El.children.length === 0){
+                console.log('stuck 1')
+                tarEl.style.marginTop = '-30px'
+                column1El.appendChild(tarEl)
+                return clickedElements = [], clicked = [];
+            }
+            if(column2El.children.length === 0){
+                tarEl.style.marginTop = '-30px'
+                column2El.appendChild(tarEl)
+                return clickedElements = [], clicked = [];
+            }
+            if(column3El.children.length === 0){
+                tarEl.style.marginTop = '-30px'
+                column3El.appendChild(tarEl)
+                return clickedElements = [], clicked = [];
+            }
+            if(column4El.children.length === 0){
+                tarEl.style.marginTop = '-30px'
+                column4El.appendChild(tarEl)
+                return clickedElements = [], clicked = [];
+            }
+            if(column5El.children.length === 0){
+                tarEl.style.marginTop = '-30px'
+                column5El.appendChild(tarEl)
+                return clickedElements = [], clicked = [];
+            }
+            if(column6El.children.length === 0){
+                tarEl.style.marginTop = '-30px'
+                column6El.appendChild(tarEl)
+                return clickedElements = [], clicked = [];
+            }
+            if(column7El.children.length === 0){
+                tarEl.style.marginTop = '-30px'
+                column7El.appendChild(tarEl)
+                return clickedElements = [], clicked = [];
+            }
+            return clickedElements = [], clicked = [];
+        }
+    
         if(clicked.length === 2){
             let a = clicked[0]
             let b = clicked[1]
@@ -131,14 +190,149 @@ playBtnEl.addEventListener('click',function(evt){
             bAbs = Math.abs(b)
             if(a+b === -1 || a+b === 1){
                 clicked = [];
+                let firstCard = clickedElements[0]
+                console.log(firstCard)
                 clickedElements[1].parentElement.appendChild(clickedElements[0])
-                renderFaceUps();
                 console.log('MATCH FOUND between',a,b)
-                return clickedElements = [], clicked = [];
+                moves +=1
+                renderFaceUps();
+                return clickedElements = [], clicked = [],moves;
                 
             }else{
-                return clickedElements = [],clicked = [];
                 console.log('MATCH NOT FOUND between,',a,b)
+                return clickedElements = [],clicked = [];
+        }   
+        console.log(clickedElements)   
+    }
+})
+
+
+
+
+function checkColumns(){
+    if(column1El.children.length ===0){
+        return true;
+    }else if(column2El.children.length === 0){
+        return true;
+    }else if(column3El.children.length === 0){
+        return true;                
+    }else if(column4El.children.length === 0){
+        return true;
+    }else if(column5El.children.length === 0){
+        return true;
+    }else if(column6El.children.length === 0){
+        return true;
+    }else if(column7El.children.length === 0){
+        return true;
+    }
+}
+
+
+
+
+playBtnEl.addEventListener('click',function(evt){
+    playBtnEl.style.visibility = 'hidden'
+    setTimeout(function(){
+
+        placeHolderEls.forEach(el=>{
+            el.style.marginTop = '-30px'
+            el.style.visibility = 'visible'
+        })
+    },2000)
+    renderColumn7();
+    renderColumn6();
+    renderColumn5();
+    renderColumn4();
+    renderColumn3();
+    renderColumn2();
+    renderColumn1();
+    renderDeck();
+    expandColums();
+    setTimeout(function(){
+        renderFaceUps();
+    },2000)
+
+    
+})
+    
+    gameBoardEl.addEventListener('click',function(evt){
+        let tarEl = evt.target
+        let cardId = evt.target.getAttribute('data-card')
+        let targParentEl = `${evt.target.parentElement.id}`
+        
+        
+        
+        if(tarEl.className !== 'card'|| !(columnChecker.includes(targParentEl))){
+            
+           
+            return;
+          
+        }
+    
+        let clickedCardValue = cards.findIndex(el=>{
+            return el.card === cardId
+        }) 
+        let cardValue = cards[clickedCardValue].value
+        clicked.push(cardValue)
+        clickedElements.push(evt.target)
+        if(tarEl.getAttribute('data-card').includes('King') && checkColumns() === true){
+
+                if(column1El.children.length === 0){
+                    tarEl.style.marginTop = '-30px'
+                    column1El.appendChild(tarEl)
+                    return clickedElements = [], clicked = [];
+                }
+                if(column2El.children.length === 0){
+                    tarEl.style.marginTop = '-30px'
+                    column2El.appendChild(tarEl)
+                    return clickedElements = [], clicked = [];
+                }
+                if(column3El.children.length === 0){
+                    tarEl.style.marginTop = '-30px'
+                    column3El.appendChild(tarEl)
+                    return clickedElements = [], clicked = [];
+                }
+                if(column4El.children.length === 0){
+                    tarEl.style.marginTop = '-30px'
+                    column4El.appendChild(tarEl)
+                    return clickedElements = [], clicked = [];
+                }
+                if(column5El.children.length === 0){
+                    tarEl.style.marginTop = '-30px'
+                    column5El.appendChild(tarEl)
+                    return clickedElements = [], clicked = [];
+                }
+                if(column6El.children.length === 0){
+                    tarEl.style.marginTop = '-30px'
+                    column6El.appendChild(tarEl)
+                    return clickedElements = [], clicked = [];
+                }
+                if(column7El.children.length === 0){
+                    tarEl.style.marginTop = '-30px'
+                    column7El.appendChild(tarEl)
+                    return clickedElements = [], clicked = [];
+                }
+                return clickedElements = [], clicked = [];
+            }
+        
+        if(clicked.length === 2){
+            
+            let a = clicked[0]
+            let b = clicked[1]
+            aAbs = Math.abs(a)
+            bAbs = Math.abs(b)
+            if(a+b === -1 || a+b === 1){
+                clicked = [];
+                clickedElements[0].style.marginTop = '-30px'
+                clickedElements[1].parentElement.appendChild(clickedElements[0])
+                console.log('MATCH FOUND between',a,b)
+                moves +=1
+                renderFaceUps();
+                return clickedElements = [], clicked = [],moves;
+                
+            }else{
+                console.log('MATCH NOT FOUND between,',a,b)
+                return clickedElements = [],clicked = [];
         }   
         console.log(clickedElements)        
     }
@@ -228,7 +422,8 @@ function renderFaceUps(){
         cards[indexLastCard1].faceup = true;
 
     }
-
+    
+    // movesEl.textContent = `Moves: ${moves}`
 
     
     cards.forEach(c=>{
@@ -240,6 +435,9 @@ function renderFaceUps(){
             })
         }      
     })
+    movesEl.style.visibility = 'visible'
+    movesEl.style.opacity = '1'
+    movesEl.textContent = `Moves: ${moves}`
 };
 function getColumnEls(){
     column7El = document.querySelector('#column7')
@@ -267,6 +465,18 @@ function expandColums(){
     },1000)
 
 }
+
+
+function renderDeck(){
+    let inc = 24;
+    while(inc > 0){
+        let lastIndex = document.querySelectorAll('#gameBoard .card').length -1
+        let cardToMove = document.querySelectorAll('#gameBoard .card')[lastIndex]
+        
+        deckEl.appendChild(cardToMove)
+    inc--
+    }
+};
 function renderColumn7(){
     let inc = 7;
     while(inc > 0){
@@ -388,17 +598,6 @@ let testObj = [
     {card:'A Diamonds',value: -1,faceup:false,active:false},
 ]
 
-
-
-function findMatch(a,b){
-    aAbs = Math.abs(a)
-    bAbs = Math.abs(b)
-    if((aAbs+bAbs) === -1){
-        console.log('MATCH FOUND between',a,b)
-    }else{
-        console.log('MATCH NOT FOUND between,',a,b)
-    }
-}
 
 
 // findMatch(-13,12)
