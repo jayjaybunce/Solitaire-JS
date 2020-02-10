@@ -244,7 +244,7 @@ faceUpDeckEl.addEventListener('click',function(evt){
                 console.log(a-b)
                 if((a-b)===1){
                     tarEl.style.marginTop = '0'
-                    heartsDeckEl.append(tarEl)
+                    heartsDeckEl.appendChild(tarEl)
                     return clickedElements = [],clicked=[];
                 }else{
                     return clickedElements = [],clicked=[];
@@ -254,7 +254,7 @@ faceUpDeckEl.addEventListener('click',function(evt){
                 console.log(a-b)
                 if((a-b)===1){
                     tarEl.style.marginTop = '0'
-                    diamondsDeckEl.append(tarEl)
+                    diamondsDeckEl.appendChild(tarEl)
                     return clickedElements = [],clicked=[];
                 }else{
                     return clickedElements = [],clicked=[];
@@ -264,7 +264,7 @@ faceUpDeckEl.addEventListener('click',function(evt){
                 console.log(a-b)
                 if((a-b)===-1){
                     tarEl.style.marginTop = '0'
-                    clubsDeckEl.append(tarEl)
+                    clubsDeckEl.appendChild(tarEl)
                     return clickedElements = [],clicked=[];
                 }else{
                     return clickedElements = [],clicked=[];
@@ -274,7 +274,7 @@ faceUpDeckEl.addEventListener('click',function(evt){
                 console.log(a-b)
                 if((a-b)===-1){
                     tarEl.style.marginTop = '0'
-                    spadesDeckEl.append(tarEl)
+                    spadesDeckEl.appendChild(tarEl)
                     return clickedElements = [],clicked=[];
                 }else{
                     return clickedElements = [],clicked=[];
@@ -368,28 +368,28 @@ playBtnEl.addEventListener('click',function(evt){
                         tarEl.style.marginTop = '0'
                         spadesDeckEl.appendChild(tarEl)
                         renderFaceUps()
-                        return clicked =[],clickedElements=[];
+               
                     })      
             }else if(tarEl.getAttribute('data-card').includes('Clubs')){
                 clubsDeckEl.addEventListener('click',function(){
                     tarEl.style.marginTop = '0'
                     clubsDeckEl.append(tarEl)
                     renderFaceUps()
-                    return clicked =[],clickedElements=[];
+                  
                 })
             }else if(tarEl.getAttribute('data-card').includes('Hearts')){
                 heartsDeckEl.addEventListener('click',function(){
                     tarEl.style.marginTop = '0'
                     heartsDeckEl.append(tarEl)
                     renderFaceUps()
-                    return clicked =[],clickedElements=[];
+                 
             })
         }else if(tarEl.getAttribute('data-card').includes('Diamonds')){
             diamondsDeckEl.addEventListener('click',function(){
                 tarEl.style.marginTop = '0'
                 diamondsDeckEl.append(tarEl)
                 renderFaceUps()
-                return clicked =[],clickedElements=[];
+             
             })
             return clicked =[],clickedElements=[];
     }else{
@@ -466,7 +466,7 @@ playBtnEl.addEventListener('click',function(evt){
                 console.log(a-b)
                 if((a-b)===1){
                     tarEl.style.marginTop = '0'
-                    heartsDeckEl.append(tarEl)
+                    heartsDeckEl.appendChild(tarEl)
                     return clickedElements = [],clicked=[];
                 }else{
                     return clickedElements = [],clicked=[];
@@ -476,7 +476,7 @@ playBtnEl.addEventListener('click',function(evt){
                 console.log(a-b)
                 if((a-b)===1){
                     tarEl.style.marginTop = '0'
-                    diamondsDeckEl.append(tarEl)
+                    diamondsDeckEl.appendChild(tarEl)
                     return clickedElements = [],clicked=[];
                 }else{
                     return clickedElements = [],clicked=[];
@@ -486,7 +486,7 @@ playBtnEl.addEventListener('click',function(evt){
                 console.log(a-b)
                 if((a-b)===-1){
                     tarEl.style.marginTop = '0'
-                    clubsDeckEl.append(tarEl)
+                    clubsDeckEl.appendChild(tarEl)
                     return clickedElements = [],clicked=[];
                 }else{
                     return clickedElements = [],clicked=[];
@@ -496,7 +496,7 @@ playBtnEl.addEventListener('click',function(evt){
                 console.log(a-b)
                 if((a-b)===-1){
                     tarEl.style.marginTop = '0'
-                    spadesDeckEl.append(tarEl)
+                    spadesDeckEl.appendChild(tarEl)
                     return clickedElements = [],clicked=[];
                 }else{
                     return clickedElements = [],clicked=[];
