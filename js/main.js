@@ -1,3 +1,45 @@
+let allCardEls = document.querySelectorAll('.card')
+
+
+let purpleCardBacks = document.querySelector('#card-back-controller-purple')
+purpleCardBacks.addEventListener('click',evt=>{
+    let faceDowns = [];
+    cards.forEach(el=>{
+        let tempEl = el
+        if(el.faceup === false){
+            faceDowns.push(tempEl)
+        }
+        console.log(faceUpArray)
+    })    
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // CLASSES,LETS,VARS and CONSTS HERE
 ////// LISTENER REBUILD IN PROGRESSS - NOT A WORKING VERSION
 class CARD {
@@ -346,7 +388,7 @@ renderCards(cards);
 
 
 
-const allCardEls = document.querySelectorAll('.card')
+
 
 
 

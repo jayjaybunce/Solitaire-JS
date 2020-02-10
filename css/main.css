@@ -452,3 +452,40 @@ body{
   .slider.round:before {
     border-radius: 50%;
   }
+
+
+  #card-back-controller-green{
+      background-image: url('../card_images/Green_back.jpg');
+      background-size: 20px 25px;
+      height: 25px;
+      width: 20px;
+      margin-left: 10px;
+  }
+  #card-back-controller-yellow{
+      background-image: url('../card_images/Yellow_back.jpg');
+      background-size: 20px 25px;
+      height: 25px;
+      width: 20px;
+      margin-left: 10px;
+  }
+  #card-back-controller-red{
+      background-image: url('../card_images/Red_back.jpg');
+      background-size: 20px 25px;
+      height: 25px;
+      width: 20px;
+      margin-left: 10px;
+  }
+  #card-back-controller-grey{
+      background-image: url('../card_images/Gray_back.jpg');
+      background-size: 20px 25px;
+      height: 25px;
+      width: 20px;
+      margin-left: 10px;
+  }
+  #card-back-controller-purple{
+      background-image: url('../card_images/purple_back.jpg');
+      background-size: 20px 25px;
+      height: 25px;
+      width: 20px;
+      margin-left: 10px;
+  }
