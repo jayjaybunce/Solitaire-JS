@@ -1,5 +1,5 @@
 // CLASSES,LETS,VARS and CONSTS HERE
-
+////// LISTENER REBUILD IN PROGRESSS - NOT A WORKING VERSION
 class CARD {
     constructor(suite,color,face,value,name){
         this.suite = suite;
