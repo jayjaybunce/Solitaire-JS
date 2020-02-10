@@ -147,8 +147,8 @@ class CARD {
 let deck = [];
 let faceUpDeck = []
 let suiteDecks = ['deck-spades','deck-hearts','deck-diamonds','deck-clubs']
-let columnChecker = ['column1','column2','column3','column4','column5','column6','column7','deck-spades','deck-hearts','deck-clubs','deck-diamonds','gameBoard']
-let restrictedElementIds = ['play-btn','deck']
+let columnChecker = ['column1','column2','column3','column4','column5','column6','column7']
+let restrictedElementIds = ['play-btn','deck','themes-controller-wrapper']
 let cards = [
     {card:'King Hearts',value: -13,faceup:false,active:false,url: '../card_images/KH.jpg'},
     {card:'King Clubs',value: 13,faceup:false,active:false,url: '../card_images/KC.jpg'},
@@ -232,6 +232,7 @@ let clubsDeckEl = document.querySelector('#deck-clubs')
 let darkModeBtnEl = document.querySelector('#dark-mode-btn')
 //EVENT LISTENERS
 playBtnEl.addEventListener('click',function(evt){
+    
     playBtnEl.style.visibility = 'hidden'
     setTimeout(function(){
 
@@ -250,6 +251,7 @@ playBtnEl.addEventListener('click',function(evt){
     renderColumn1();
     renderDeck();
     expandColums();
+    
     setTimeout(function(){
         renderFaceUps();
     },2000)
@@ -273,6 +275,19 @@ const createCard = (varname,dataId,name) => {
     /////LEFT OFF HERE//////
     ///////////////////////
     // FUNCTION DECLARATIONS
+function findSuite(string){
+    string=string.split('')
+    let suiteBuilder =[]
+    for(let i = string.length-1;i >= 0;i--){
+        if(string[i] ===" "){
+        break;
+        }else{
+        suiteBuilder.push(string[i])
+        }
+    }
+    return suiteBuilder = suiteBuilder.reverse('').join('')
+}
+    
 function renderFaceUps(){
     if(column7El.children.length > 0){
         let lastCol7 = column7El.lastChild.getAttribute('data-card')
@@ -513,61 +528,129 @@ darkModeBtnEl.addEventListener('click',function(evt){
 
 
 bodyEl.addEventListener('click',evt=>{
-    let tarEl = evt.target
-    let tarParEl = evt.target.parentElement
+    
 
-/// (a.1) --this code processes the clicking of the deck and moving of cards to the faceUpDeckEl and reseting the deck
-    if(tarParEl.getAttribute('id') === 'deck' || tarEl.getAttribute('id') === 'deck'){
-        console.log('processing, now inside bodyEl Event Listener')
-        if(deckEl.children.length> 0){
-            let cardId = tarEl.getAttribute('data-card')
-            let idx = cards.findIndex(card=>{
-                return card.card === cardId
-            })
-            cards[idx].faceup = true;
-            tarEl.style.backgroundImage = `url('${cards[idx].url}')`
-            faceUpDeckEl.appendChild(tarEl)
-        }else if(deckEl.children.length === 0){
-            let inc = 24
-            // console.log('Processing Swap')
-            while (inc > 0){
-                let swapElement = faceUpDeckEl.lastChild
-                let cardId = swapElement.getAttribute('data-card')
+        let tarEl = evt.target
+        let tarParEl = evt.target.parentElement
+        
+        /// (a.1) --this code processes the clicking of the deck and moving of cards to the faceUpDeckEl and reseting the deck
+        if(tarParEl.getAttribute('id') === 'deck' || tarEl.getAttribute('id') === 'deck'){
+            console.log('processing, now inside bodyEl Event Listener')
+            if(deckEl.children.length> 0){
+                let cardId = tarEl.getAttribute('data-card')
                 let idx = cards.findIndex(card=>{
                     return card.card === cardId
                 })
-                cards[idx].faceup = false;
-                swapElement.style.backgroundImage = currentBackground
-                deckEl.appendChild(swapElement)
-                inc--
-            }
-        }     
-    }
-////////////////////////////// See above code segment for details -- (a.1)
-    let cardId = tarEl.getAttribute('data-card')
-    let idx = cards.findIndex(card=>{
-        return card.card === cardId
-    })
-    if(restrictedElementIds.includes(tarEl.getAttribute('id')) || restrictedElementIds.includes(tarParEl.getAttribute('id'))){
-        console.log(`we've restricted that element`)
-        return ;
-    }
-    try{
-
-        if(cards[idx].faceup === false){
-            console.log('Not face up!')
+                cards[idx].faceup = true;
+                tarEl.style.backgroundImage = `url('${cards[idx].url}')`
+                faceUpDeckEl.appendChild(tarEl)
+            }else if(deckEl.children.length === 0){
+                let inc = 24
+                // console.log('Processing Swap')
+                while (inc > 0){
+                    let swapElement = faceUpDeckEl.lastChild
+                    let cardId = swapElement.getAttribute('data-card')
+                    let idx = cards.findIndex(card=>{
+                        return card.card === cardId
+                    })
+                    cards[idx].faceup = false;
+                    swapElement.style.backgroundImage = currentBackground
+                    deckEl.appendChild(swapElement)
+                    inc--
+                }
+            }     
+        }
+        ////////////////////////////// See above code segment for details -- (a.1)
+        let cardId = tarEl.getAttribute('data-card')
+        let idx = cards.findIndex(card=>{
+            return card.card === cardId
+        })
+        if(tarEl.getAttribute('id')=== 'body-element'){
+            console.log('we have restricted that element')
             return;
         }
-    }catch(error){
-        console.log('Deck clicked, but its okay. We caught it')
-    }
-
-    console.log(tarParEl.getAttribute('id'))
-    clickedElements.push(tarEl)
-    console.log(tarEl.getAttribute('data-card'))
-
-    if(suiteDecks.includes(clickedElements[1].getAttribute('id'))){
-        console.log(tarEl.getAttribute('id'))
-    }
-})    
+        if(columnChecker.includes(tarEl.getAttribute('id'))){
+            console.log('columns cannot be selected')
+            return ;
+        }
+        if(restrictedElementIds.includes(tarEl.getAttribute('id')) || restrictedElementIds.includes(tarParEl.getAttribute('id'))){
+            console.log(`we've restricted that element`)
+            return ;
+        }
+        try{
             
+            if(cards[idx].faceup === false){
+                console.log('Not face up!')
+                return;
+            }
+        }catch(error){
+            console.log('Deck clicked, but its okay. We caught it')
+        }
+        clickedElements.push(tarEl)
+        if(clickedElements.length === 2){
+            let objOne = clickedElements[0];
+            let objOneId = objOne.getAttribute('data-card')
+            let objOneIdx = cards.findIndex(card=>{
+                return card.card === objOneId
+            })
+            let objTwo = clickedElements[1];
+            let objTwoId = objTwo.getAttribute('id')
+            let objTwoValue = objTwo.getAttribute('data-card')
+            let objTwoIdx = cards.findIndex(card=>{
+                return card.card === objTwoValue
+            })
+            if(suiteDecks.includes(clickedElements[1].getAttribute('id'))){
+                if(objOneId.includes('A')){
+                    if(objOne.getAttribute('data-card').includes('Hearts') && objTwo.getAttribute('id').includes('hearts')){
+                        console.log('Passed')
+                        objOne.style.marginTop = '0'
+                        heartsDeckEl.appendChild(objOne)
+                        renderFaceUps()
+                        return clickedElements = [];
+                    }else if(objOne.getAttribute('data-card').includes('Diamonds') && objTwo.getAttribute('id').includes('diamonds')){
+                        console.log('Passed')
+                        objOne.style.marginTop = '0'
+                        diamondsDeckEl.appendChild(objOne)
+                        renderFaceUps()
+                        return clickedElements = [];
+                    }else if(objOne.getAttribute('data-card').includes('Clubs') && objTwo.getAttribute('id').includes('clubs')){
+                        console.log('Passed')
+                        objOne.style.marginTop = '0'
+                        clubsDeckEl.appendChild(objOne)
+                        renderFaceUps()
+                        return clickedElements = [];
+                    }else if(objOne.getAttribute('data-card').includes('Spades') && objTwo.getAttribute('id').includes('spades')){
+                        console.log('Passed')
+                        objOne.style.marginTop = '0'
+                        spadesDeckEl.appendChild(objOne)
+                        renderFaceUps()
+                        return clickedElements = [];
+                    }else{
+                        return clickedElements = [];
+                    }
+                }
+            }else if(findSuite(objOne.getAttribute('data-card')) === findSuite(objTwo.getAttribute('data-card'))){
+                if(suiteDecks.includes(objTwo.parentElement.getAttribute('id'))){
+                    console.log(cards[objOneIdx].value,cards[objTwoIdx].value)
+                    a = cards[objOneIdx].value
+                    b = cards[objTwoIdx].value
+                    console.log(a-b)
+                    if(a-b === -1){
+                        heartsDeckEl.appendChild(objOne)
+                    }
+                }
+            }
+        }
+        
+    
+    
+    console.log(clickedElements)
+//     console.log(tarEl.getAttribute('data-card'))
+//     if(suiteDecks.includes(clickedElements[1].getAttribute('id'))){
+//         console.log(tarEl.getAttribute('id'))
+// }
+
+        
+})    
+    
+    
