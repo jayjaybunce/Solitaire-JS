@@ -9,7 +9,109 @@ purpleCardBacks.addEventListener('click',evt=>{
         if(el.faceup === false){
             faceDowns.push(tempEl)
         }
-        console.log(faceUpArray)
+        faceDowns.forEach(card=>{
+            let cEl = document.querySelector(`[data-card='${card.card}']`)
+            cEl.style.backgroundImage = `url('../card_images/purple_back.jpg')`
+            return currentBackground = `url('../card_images/purple_back.jpg')`
+            
+        })
+    })    
+})
+
+let greyCardBacks = document.querySelector('#card-back-controller-grey')
+greyCardBacks.addEventListener('click',evt=>{
+    let faceDowns = [];
+    cards.forEach(el=>{
+        let tempEl = el
+        if(el.faceup === false){
+            faceDowns.push(tempEl)
+        }
+        faceDowns.forEach(card=>{
+            let cEl = document.querySelector(`[data-card='${card.card}']`)
+            cEl.style.backgroundImage = `url('../card_images/Gray_back.jpg')`
+            return currentBackground = `url('../card_images/Grey_back.jpg')`
+            
+        })
+    })    
+})
+let redCardBacks = document.querySelector('#card-back-controller-red')
+redCardBacks.addEventListener('click',evt=>{
+    let faceDowns = [];
+    cards.forEach(el=>{
+        let tempEl = el
+        if(el.faceup === false){
+            faceDowns.push(tempEl)
+        }
+        faceDowns.forEach(card=>{
+            let cEl = document.querySelector(`[data-card='${card.card}']`)
+            cEl.style.backgroundImage = `url('../card_images/Red_back.jpg')`
+            return currentBackground = `url('../card_images/Red_back.jpg')`
+            
+        })
+    })    
+})
+let yellowCardBacks = document.querySelector('#card-back-controller-yellow')
+yellowCardBacks.addEventListener('click',evt=>{
+    let faceDowns = [];
+    cards.forEach(el=>{
+        let tempEl = el
+        if(el.faceup === false){
+            faceDowns.push(tempEl)
+        }
+        faceDowns.forEach(card=>{
+            let cEl = document.querySelector(`[data-card='${card.card}']`)
+            cEl.style.backgroundImage = `url('../card_images/Yellow_back.jpg')`
+            return currentBackground = `url('../card_images/Yellow_back.jpg')`
+            
+        })
+    })    
+})
+let greenCardBacks = document.querySelector('#card-back-controller-green')
+greenCardBacks.addEventListener('click',evt=>{
+    let faceDowns = [];
+    cards.forEach(el=>{
+        let tempEl = el
+        if(el.faceup === false){
+            faceDowns.push(tempEl)
+        }
+        faceDowns.forEach(card=>{
+            let cEl = document.querySelector(`[data-card='${card.card}']`)
+            cEl.style.backgroundImage = `url('../card_images/Green_back.jpg')`
+            return currentBackground = `url('../card_images/Green_back.jpg')`
+            
+        })
+    })    
+})
+let willowCardBacks = document.querySelector('#card-back-controller-willow')
+willowCardBacks.addEventListener('click',evt=>{
+    let faceDowns = [];
+    cards.forEach(el=>{
+        let tempEl = el
+        if(el.faceup === false){
+            faceDowns.push(tempEl)
+        }
+        faceDowns.forEach(card=>{
+            let cEl = document.querySelector(`[data-card='${card.card}']`)
+            cEl.style.backgroundImage = `url('../card_images/willow.jpg')`
+            return currentBackground = `url('../card_images/willow.jpg')`
+            
+        })
+    })    
+})
+let lyraCardBacks = document.querySelector('#card-back-controller-lyra')
+lyraCardBacks.addEventListener('click',evt=>{
+    let faceDowns = [];
+    cards.forEach(el=>{
+        let tempEl = el
+        if(el.faceup === false){
+            faceDowns.push(tempEl)
+        }
+        faceDowns.forEach(card=>{
+            let cEl = document.querySelector(`[data-card='${card.card}']`)
+            cEl.style.backgroundImage = `url('../card_images/lyra.jpg')`
+            return currentBackground = `url('../card_images/lyra.jpg')`
+            
+        })
     })    
 })
 
@@ -24,24 +126,9 @@ purpleCardBacks.addEventListener('click',evt=>{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // CLASSES,LETS,VARS and CONSTS HERE
 ////// LISTENER REBUILD IN PROGRESSS - NOT A WORKING VERSION
+let currentBackground = `url("../card_images/blue_back.jpg")`
 class CARD {
     constructor(suite,color,face,value,name){
         this.suite = suite;
@@ -59,9 +146,9 @@ class CARD {
 }
 let deck = [];
 let faceUpDeck = []
-
+let suiteDecks = ['deck-spades','deck-hearts','deck-diamonds','deck-clubs']
 let columnChecker = ['column1','column2','column3','column4','column5','column6','column7','deck-spades','deck-hearts','deck-clubs','deck-diamonds','gameBoard']
-
+let restrictedElementIds = ['play-btn','deck']
 let cards = [
     {card:'King Hearts',value: -13,faceup:false,active:false,url: '../card_images/KH.jpg'},
     {card:'King Clubs',value: 13,faceup:false,active:false,url: '../card_images/KC.jpg'},
@@ -118,6 +205,7 @@ let cards = [
 ]
 ///////////////////////////////////////////////
 // CACHED ELEMENTS HERE
+let movesHeader = document.querySelector('#moves')
 const bodyEl = document.querySelector('body')
 let moves = 0;
 let movesEl = document.querySelector('#moves h3')
@@ -410,47 +498,76 @@ function shuffleCards(cardsArray){
 
 function render(){
     shuffleCards(cards)
-
-
 }
-
-// console.log(cards)
-
-
-
-
-let testObj = [
-    {card:'A Hearts',value: -1,faceup:false,active:false},
-    {card:'A Clubs',value: 1,faceup:false,active:false},
-    {card:'A Spades',value: 1,faceup:false,active:false},
-    {card:'A Diamonds',value: -1,faceup:false,active:false},
-]
-
-
-
-// findMatch(-13,12)
-// findMatch(-12,11)
-// findMatch(11,-12)
-// findMatch(9,-10)
-// findMatch(8,-7)
-// findMatch(-7,8)
-// findMatch(1,-2)
-
-
-
-
-
-
-
-
-
 bodyEl.style.backgroundColor = 'white'
-
 darkModeBtnEl.addEventListener('click',function(evt){
     if(bodyEl.style.backgroundColor === 'white'){
         bodyEl.style.backgroundColor = 'black'
+        movesHeader.style.color = 'white'
         console.log('Initiating dark mode')
     }else{
+        movesHeader.style.color = 'black'
         bodyEl.style.backgroundColor = 'white'
     }
 })
+
+
+bodyEl.addEventListener('click',evt=>{
+    let tarEl = evt.target
+    let tarParEl = evt.target.parentElement
+
+/// (a.1) --this code processes the clicking of the deck and moving of cards to the faceUpDeckEl and reseting the deck
+    if(tarParEl.getAttribute('id') === 'deck' || tarEl.getAttribute('id') === 'deck'){
+        console.log('processing, now inside bodyEl Event Listener')
+        if(deckEl.children.length> 0){
+            let cardId = tarEl.getAttribute('data-card')
+            let idx = cards.findIndex(card=>{
+                return card.card === cardId
+            })
+            cards[idx].faceup = true;
+            tarEl.style.backgroundImage = `url('${cards[idx].url}')`
+            faceUpDeckEl.appendChild(tarEl)
+        }else if(deckEl.children.length === 0){
+            let inc = 24
+            // console.log('Processing Swap')
+            while (inc > 0){
+                let swapElement = faceUpDeckEl.lastChild
+                let cardId = swapElement.getAttribute('data-card')
+                let idx = cards.findIndex(card=>{
+                    return card.card === cardId
+                })
+                cards[idx].faceup = false;
+                swapElement.style.backgroundImage = currentBackground
+                deckEl.appendChild(swapElement)
+                inc--
+            }
+        }     
+    }
+////////////////////////////// See above code segment for details -- (a.1)
+    let cardId = tarEl.getAttribute('data-card')
+    let idx = cards.findIndex(card=>{
+        return card.card === cardId
+    })
+    if(restrictedElementIds.includes(tarEl.getAttribute('id')) || restrictedElementIds.includes(tarParEl.getAttribute('id'))){
+        console.log(`we've restricted that element`)
+        return ;
+    }
+    try{
+
+        if(cards[idx].faceup === false){
+            console.log('Not face up!')
+            return;
+        }
+    }catch(error){
+        console.log('Deck clicked, but its okay. We caught it')
+    }
+
+    console.log(tarParEl.getAttribute('id'))
+    clickedElements.push(tarEl)
+    console.log(tarEl.getAttribute('data-card'))
+
+    if(suiteDecks.includes(clickedElements[1].getAttribute('id'))){
+        console.log(tarEl.getAttribute('id'))
+    }
+})    
+            
