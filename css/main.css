@@ -25,7 +25,10 @@ body{
     -webkit-box-shadow: 0px 0px 20px -1px rgba(0,0,0,0.94); 
     box-shadow: 0px 0px 20px -1px rgba(0,0,0,0.94);
     border: 1px solid white;
+    transition: background-image 0.5s linear;
     display: grid;
+    border: 1px solid hidden;
+    background-size: 1000px 1000px;
     grid-template-columns: 10fr;
     
     grid-row: 10px 480px 10px;
@@ -515,4 +518,60 @@ body{
       width: 20px;
       border-radius: 3%;
       margin-left: 10px;
+  }
+  #purple-bg{
+      height:25px;
+      margin-left: 10px;
+      width: 25px;
+      border: 0.5px solid white;
+      border-radius: 20%;
+      background-image: url('../bg_images/purple-bg.jpg');
+  }
+  #doge-bg{
+      height:25px;
+      width: 25px;
+      border: 0.5px solid white;
+      margin-left: 10px;
+      border-radius: 20%;
+      background-image: url('../bg_images/doge-bg.jpg');
+  }
+  #dogezilla-bg{
+      height:25px;
+      width: 25px;
+      border: 0.5px solid white;
+      margin-left: 10px;
+      border-radius: 20%;
+      background-image: url('../bg_images/dogezilla-bg.jpg');
+  }
+  #mint-bg{
+      height:25px;
+      width: 25px;
+      border: 0.5px solid white;
+      margin-left: 10px;
+      border-radius: 20%;
+      background-image: url('../bg_images/mint-bg.jpg');
+  }
+  #red-bg{
+      height:25px;
+      width: 25px;
+      border: 0.5px solid white;
+      margin-left: 10px;
+      border-radius: 20%;
+      background-image: url('../bg_images/red-bg.jpg');
+  }
+  #pink-bg{
+      height:25px;
+      width: 25px;
+      border: 0.5px solid white;
+      margin-left: 10px;
+      border-radius: 20%;
+      background-image: url('../bg_images/pink-bg.jpg');
+  }
+  #cones-bg{
+      height:25px;
+      margin-left: 10px;
+      width: 25px;
+      border: 0.5px solid white;
+      border-radius: 20%;
+      background-image: url('../bg_images/cones-bg.jpg');
   }

@@ -114,18 +114,34 @@ lyraCardBacks.addEventListener('click',evt=>{
         })
     })    
 })
-
-
-
-
-
-
-
-
-
-
-
-
+let purpleBgEl = document.querySelector('#purple-bg')
+purpleBgEl.addEventListener('click',evt=>{
+    gameBoardEl.style.backgroundImage = `url('../bg_images/purple-bg.jpg')`
+})
+let dogeBgEl = document.querySelector('#doge-bg')
+dogeBgEl.addEventListener('click',evt=>{
+    gameBoardEl.style.backgroundImage = `url('../bg_images/doge-bg.jpg')`
+})
+let dogezillaBgEl = document.querySelector('#dogezilla-bg')
+dogezillaBgEl.addEventListener('click',evt=>{
+    gameBoardEl.style.backgroundImage = `url('../bg_images/dogezilla-bg.jpg')`
+})
+let mintBgEl = document.querySelector('#mint-bg')
+mintBgEl.addEventListener('click',evt=>{
+    gameBoardEl.style.backgroundImage = `url('../bg_images/mint-bg.jpg')`
+})
+let redBgEl = document.querySelector('#red-bg')
+redBgEl.addEventListener('click',evt=>{
+    gameBoardEl.style.backgroundImage = `url('../bg_images/red-bg.jpg')`
+})
+let pinkBgEl = document.querySelector('#pink-bg')
+pinkBgEl.addEventListener('click',evt=>{
+    gameBoardEl.style.backgroundImage = `url('../bg_images/pink-bg.jpg')`
+})
+let conesBgEl = document.querySelector('#cones-bg')
+conesBgEl.addEventListener('click',evt=>{
+    gameBoardEl.style.backgroundImage = `url('../bg_images/cones-bg.jpg')`
+})
 // CLASSES,LETS,VARS and CONSTS HERE
 ////// LISTENER REBUILD IN PROGRESSS - NOT A WORKING VERSION
 let currentBackground = `url("../card_images/blue_back.jpg")`
@@ -209,6 +225,7 @@ let movesHeader = document.querySelector('#moves')
 const bodyEl = document.querySelector('body')
 let moves = 0;
 let movesEl = document.querySelector('#moves h3')
+let column1Cards = [];
 let column7El;
 let column6El;
 let column5El;
@@ -275,6 +292,9 @@ const createCard = (varname,dataId,name) => {
     /////LEFT OFF HERE//////
     ///////////////////////
     // FUNCTION DECLARATIONS
+
+
+
 function findSuite(string){
     // console.log(`Finding suite of ${string}`)
     string = string.split('')
@@ -388,8 +408,6 @@ function expandColums(){
     },1000)
 
 }
-
-
 function renderDeck(){
     let inc = 24;
     while(inc > 0){
@@ -400,10 +418,6 @@ function renderDeck(){
     inc--
     }
 };
-
-
-
-
 function renderSuitePiles(){
     suiteDeckEls.forEach(deck=>{
         deck.style.visibility = 'visible'
@@ -473,9 +487,17 @@ function renderColumn1(){
     inc--
     }
 };
-
-
-
+let matchingEls;
+function getMatchingEls(tEl){
+    console.log('getting siblings')
+    matchingEls = []
+    while(tEl !== tEl.parentElement.lastElementChild){
+        matchingEls.push(tEl)
+        tEl = tEl.nextElementSibling    
+    }
+    matchingEls.push(tEl) 
+    return matchingEls;
+}
 function renderCards(dataSet){
     dataSet.forEach(element=>{
         cardEl = document.createElement('div')
@@ -484,24 +506,9 @@ function renderCards(dataSet){
         gameBoardEl.appendChild(cardEl)
     })
 }
-
 getColumnEls();
 render();
 renderCards(cards);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function shuffleCards(cardsArray){
     for(let i = cardsArray.length - 1; i > 0; i--){
         const j = Math.floor(Math.random() * i)
@@ -511,17 +518,18 @@ function shuffleCards(cardsArray){
         }
 }
 
-
 function render(){
     shuffleCards(cards)
 }
 bodyEl.style.backgroundColor = 'white'
 darkModeBtnEl.addEventListener('click',function(evt){
     if(bodyEl.style.backgroundColor === 'white'){
+        gameBoardEl.style.border = 'none'
         bodyEl.style.backgroundColor = 'black'
         movesHeader.style.color = 'white'
         console.log('Initiating dark mode')
     }else{
+        gameBoardEl.style.border = '1px solid white'
         movesHeader.style.color = 'black'
         bodyEl.style.backgroundColor = 'white'
     }
@@ -529,6 +537,7 @@ darkModeBtnEl.addEventListener('click',function(evt){
 
 
 bodyEl.addEventListener('click',evt=>{
+        
         let tarEl = evt.target
         let tarParEl = evt.target.parentElement
         if(tarEl.getAttribute('class')==='slider round' || tarEl.getAttribute('id') ==='dark-mode-btn'){
@@ -616,11 +625,15 @@ bodyEl.addEventListener('click',evt=>{
                 }else{
                     
                 }
+                moves +=1;
                 renderFaceUps();
                 
             }
         }catch(e){
             console.log('Error at 613' + e)
+        }
+        if(clickedElements.length >=3){
+            clickedElements = [];
         }
         clickedElements.push(tarEl)
         
@@ -642,27 +655,32 @@ bodyEl.addEventListener('click',evt=>{
                         console.log('Passed')
                         objOne.style.marginTop = '0'
                         heartsDeckEl.appendChild(objOne)
+                        moves +=1;
                         renderFaceUps()
                         return clickedElements = [];
                     }else if(objOne.getAttribute('data-card').includes('Diamonds') && objTwo.getAttribute('id').includes('diamonds')){
                         console.log('Passed')
                         objOne.style.marginTop = '0'
                         diamondsDeckEl.appendChild(objOne)
+                        moves +=1;
                         renderFaceUps()
                         return clickedElements = [];
                     }else if(objOne.getAttribute('data-card').includes('Clubs') && objTwo.getAttribute('id').includes('clubs')){
                         console.log('Passed')
                         objOne.style.marginTop = '0'
                         clubsDeckEl.appendChild(objOne)
+                        moves +=1;
                         renderFaceUps()
                         return clickedElements = [];
                     }else if(objOne.getAttribute('data-card').includes('Spades') && objTwo.getAttribute('id').includes('spades')){
                         console.log('Passed')
                         objOne.style.marginTop = '0'
                         spadesDeckEl.appendChild(objOne)
+                        moves +=1;
                         renderFaceUps()
                         return clickedElements = [];
                     }else{
+                        moves +=1;
                         return clickedElements = [];
                     }
                 }
@@ -677,12 +695,14 @@ bodyEl.addEventListener('click',evt=>{
                             console.log(`appending ${objOneId} to hearts deck`)
                             objOne.style.marginTop = '0'
                             heartsDeckEl.appendChild(objOne)
+                            moves +=1;
                             renderFaceUps();
                             return clickedElements = [];
                         }else if(findSuite(objOne.getAttribute('data-card')) === 'Diamonds'){
                             console.log(`appending ${objOneId} to diamonds deck`)
                             objOne.style.marginTop = '0'
                             diamondsDeckEl.appendChild(objOne)
+                            moves +=1;
                             renderFaceUps();
                             return clickedElements = [];
                         }else{
@@ -693,12 +713,14 @@ bodyEl.addEventListener('click',evt=>{
                             console.log(`appending ${objOneId} to hearts clubs`)
                             objOne.style.marginTop = '0'
                             clubsDeckEl.appendChild(objOne)
+                            moves +=1;
                             renderFaceUps();
                             return clickedElements = [];
                         }else if(findSuite(objOne.getAttribute('data-card')) === 'Spades'){
                             console.log(`appending ${objOneId} to spades deck`)
                             objOne.style.marginTop = '0'
                             spadesDeckEl.appendChild(objOne)
+                            moves +=1;
                             renderFaceUps();
                             return clickedElements = [];
                         }else{
@@ -715,8 +737,13 @@ bodyEl.addEventListener('click',evt=>{
                 if(findSuite(objOne.getAttribute('data-card'))==='Hearts' || findSuite(objOne.getAttribute('data-card'))==='Diamonds'){
                     console.log(`${objOneId} with value ${a} + ${objTwoValue} with value ${b} = ${a+b}`)
                     if(a+b===1){
+                        getMatchingEls(objOne)
+                        matchingEls.forEach(el=>{
+                            objTwo.parentElement.appendChild(el)
+                        })
                         objOne.style.marginTop = '-70px'
-                        objTwo.parentElement.appendChild(objOne);
+                        // objTwo.parentElement.appendChild(objOne);
+                        moves +=1;
                         renderFaceUps();
                         return clickedElements = [];
                     }else{
@@ -724,8 +751,13 @@ bodyEl.addEventListener('click',evt=>{
                     }
                 }else if(findSuite(objOne.getAttribute('data-card'))==='Clubs' || findSuite(objOne.getAttribute('data-card'))==='Spades'){
                     if(a+b===-1){
+                        getMatchingEls(objOne)
+                        matchingEls.forEach(el=>{
+                            objTwo.parentElement.appendChild(el)
+                        })
                         objOne.style.marginTop = '-70px'
-                        objTwo.parentElement.appendChild(objOne);
+                        // objTwo.parentElement.appendChild(objOne);
+                        moves +=1;
                         renderFaceUps();
                         return clickedElements = [];
                     }else{
