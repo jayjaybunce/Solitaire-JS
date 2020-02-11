@@ -535,25 +535,7 @@ bodyEl.addEventListener('click',evt=>{
             return;
         }
         /// (a.1) --this code processes the clicking of the deck and moving of cards to the faceUpDeckEl and reseting the deck
-        if(tarEl.getAttribute('class')==='card'){
-            if(tarEl.getAttribute('data-card').includes('King')){
-                if(column1El.children.lenghth === 0){
-                    column1El.appendChild(tarEl)
-                }else if(column2El.children.length === 0){
-                    column2El.appendChild(tarEl)
-                }else if(column3El.children.length === 0){
-                    column3El.appendChild(tarEl)
-                }else if(column4El.children.length === 0){
-                    column4El.appendChild(tarEl)
-                }else if(column5El.children.length === 0){
-                    column5El.appendChild(tarEl)
-                }else if(column6El.children.length === 0){
-                    column6El.appendChild(tarEl)
-                }else if(column7El.children.length === 0){
-                    column7El.appendChild(tarEl)
-                }
-            }
-        }
+       
         if(tarParEl.getAttribute('id') === 'deck' || tarEl.getAttribute('id') === 'deck'){
             console.log('processing, now inside bodyEl Event Listener')
             if(deckEl.children.length> 0){
@@ -605,6 +587,40 @@ bodyEl.addEventListener('click',evt=>{
             }
         }catch(error){
             console.log('Deck clicked, but its okay. We caught it')
+        }
+        try{
+
+            if(tarEl.getAttribute('data-card').includes('King')){
+                getColumnEls();
+                if(column1El.children.length === 0){
+                    tarEl.style.marginTop = '-30px'
+                    column1El.appendChild(tarEl)
+                }else if(column2El.children.length === 0){
+                    tarEl.style.marginTop = '-30px'
+                    column2El.appendChild(tarEl)
+                }else if(column3El.children.length === 0){
+                    tarEl.style.marginTop = '-30px'
+                    column3El.appendChild(tarEl)
+                }else if(column4El.children.length === 0){
+                    tarEl.style.marginTop = '-30px'
+                    column4El.appendChild(tarEl)
+                }else if(column5El.children.length === 0){
+                    tarEl.style.marginTop = '-30px'
+                    column5El.appendChild(tarEl)
+                }else if(column6El.children.length === 0){
+                    tarEl.style.marginTop = '-30px'
+                    column6El.appendChild(tarEl)
+                }else if(column7El.children.length === 0){
+                    tarEl.style.marginTop = '-30px'
+                    column7El.appendChild(tarEl)
+                }else{
+                    
+                }
+                renderFaceUps();
+                
+            }
+        }catch(e){
+            console.log('Error at 613' + e)
         }
         clickedElements.push(tarEl)
         
@@ -717,6 +733,8 @@ bodyEl.addEventListener('click',evt=>{
                     }
                 }
 
+                
+            }else{
                 return clickedElements = [];
             }
         }
