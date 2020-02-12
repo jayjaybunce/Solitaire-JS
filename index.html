@@ -10,89 +10,6 @@
     <script defer src="js/main.js"></script>
 </head>
 <body id="body-element">
-    <!-- <div id="gameBoard">
-        <div id="column7">
-            <br>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-        </div>
-        <div id="column6">
-            <br>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-        </div>
-        <div id="column5">
-            <br>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-        </div>
-        <div id="column4">
-            <br>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-        </div>
-        <div id="column3">
-            <br>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-        </div>
-        <div id="column2">
-            <br>
-            <div class="card">
-            </div>
-            <div class="card">
-            </div>
-        </div>
-        <div id="column1">
-            <br>
-            <div class="card" draggable="true">
-            </div>
-        </div>
-        <div id="deck">
-        </div>
-        <div id="face-up-deck">
-        </div>
-    </div> -->
     <div id='themes-controller-wrapper'>
         <h3>Dark Mode</h3>
         <label class="switch">
@@ -146,6 +63,7 @@
         </div>
     </div>
     <button id="play-btn">Play</button>
+    <button id="replay-btn">Replay</button>
     <div id="gameBoard">
         <div id="gameHeader">
             <div id="moves">
@@ -180,16 +98,16 @@
             
         </div>
 
-        <div id='deck-diamonds'>
+        <div id='deck-diamonds' ondragover="allowDrop(event)" ondrop="drop(event)">
             
         </div>
-        <div id='deck-hearts'>
+        <div id='deck-hearts' ondragover="allowDrop(event)" ondrop="drop(event)">
     
         </div>
-        <div id='deck-spades'>
+        <div id='deck-spades' ondragover="allowDrop(event)" ondrop="drop(event)">
     
         </div>
-        <div id='deck-clubs'>
+        <div id='deck-clubs' ondragover="allowDrop(event)" ondrop="drop(event)">
     
         </div>
     </div>
