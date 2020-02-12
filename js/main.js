@@ -1,6 +1,4 @@
 let allCardEls = document.querySelectorAll('.card')
-
-
 let purpleCardBacks = document.querySelector('#card-back-controller-purple')
 purpleCardBacks.addEventListener('click',evt=>{
     let faceDowns = [];
@@ -17,7 +15,6 @@ purpleCardBacks.addEventListener('click',evt=>{
         })
     })    
 })
-
 let greyCardBacks = document.querySelector('#card-back-controller-grey')
 greyCardBacks.addEventListener('click',evt=>{
     let faceDowns = [];
@@ -219,8 +216,6 @@ let cards = [
     {card:'A Diamonds',value: -1,faceup:false,active:false,url: '../card_images/AceD.jpg'},
     {card:'A Spades',value: 1,faceup:false,active:false,url: '../card_images/AS.jpg'},
 ]
-///////////////////////////////////////////////
-// CACHED ELEMENTS HERE
 let movesHeader = document.querySelector('#moves')
 const bodyEl = document.querySelector('body')
 let moves = 0;
@@ -247,12 +242,11 @@ let heartsDeckEl = document.querySelector('#deck-hearts')
 let diamondsDeckEl = document.querySelector('#deck-diamonds')
 let clubsDeckEl = document.querySelector('#deck-clubs')
 let darkModeBtnEl = document.querySelector('#dark-mode-btn')
+let replayBtnEl = document.querySelector('#replay-btn')
 //EVENT LISTENERS
 playBtnEl.addEventListener('click',function(evt){
-    
     playBtnEl.style.visibility = 'hidden'
     setTimeout(function(){
-
         placeHolderEls.forEach(el=>{
             el.style.marginTop = '-30px'
             el.style.visibility = 'visible'
@@ -268,33 +262,87 @@ playBtnEl.addEventListener('click',function(evt){
     renderColumn1();
     renderDeck();
     expandColums();
-    
     setTimeout(function(){
         renderFaceUps();
     },2000)
-
-    
+    replayBtnEl.style.visibility = 'visible'
 })
-
-
+replayBtnEl.addEventListener('click',function(evt){
+    let allCardEls = document.querySelectorAll('.card')
+    cards.forEach(card=>{
+        if(card.faceup === true){
+            card.faceup = false;
+        }
+    })
+    allCardEls.forEach(card=>{
+        card.style.backgroundImage = currentBackground
+        gameBoardEl.appendChild(card)
+    })
+    shuffleCards(cards)
+    renderColumn7();
+    renderColumn6();
+    renderColumn5();
+    renderColumn4();
+    renderColumn3();
+    renderColumn2();
+    renderColumn1();
+    renderDeck();
+    expandColums();
+    moves = 0;
+    renderFaceUps();
     
-    
-    /// FUNCTION EXPRESSIONS
-const createCard = (varname,dataId,name) => {
-    varName = document.createElement('div');
-    varName.setAttribute('data-id',dataId);
-    varName.textContent = name;
-    console.dir(varName)
-    bodyEl.appendChild(varName);
-}
 
-    ////////////////////////
-    /////LEFT OFF HERE//////
-    ///////////////////////
-    // FUNCTION DECLARATIONS
-
-
-
+})
+bodyEl.style.backgroundColor = 'white'
+darkModeBtnEl.addEventListener('click',function(evt){
+    if(bodyEl.style.backgroundColor === 'white'){
+        gameBoardEl.style.border = 'none'
+        bodyEl.style.backgroundColor = 'black'
+        movesHeader.style.color = 'white'
+        console.log('Initiating dark mode')
+    }else{
+        gameBoardEl.style.border = '1px solid white'
+        movesHeader.style.color = 'black'
+        bodyEl.style.backgroundColor = 'white'
+    }
+})
+deckEl.addEventListener('click',function(evt){
+    let tarEl = evt.target
+            let tarParEl = evt.target.parentElement
+            if(tarEl.getAttribute('class')==='slider round' || tarEl.getAttribute('id') ==='dark-mode-btn'){
+                return;
+            }
+            /// (a.1) --this code processes the clicking of the deck and moving of cards to the faceUpDeckEl and reseting the deck
+           
+            if(tarParEl.getAttribute('id') === 'deck' || tarEl.getAttribute('id') === 'deck'){
+                console.log('processing, now inside bodyEl Event Listener')
+                if(deckEl.children.length> 0){
+                    let cardId = tarEl.getAttribute('data-card')
+                    let idx = cards.findIndex(card=>{
+                        return card.card === cardId
+                    })
+                    cards[idx].faceup = true;
+                    tarEl.setAttribute('draggable','true')
+                    tarEl.style.backgroundImage = `url('${cards[idx].url}')`
+                    faceUpDeckEl.appendChild(tarEl)
+                }else if(deckEl.children.length === 0){
+                    let inc = 24
+                    // console.log('Processing Swap')
+                    while (inc > 0){
+                        let swapElement = faceUpDeckEl.lastChild
+                        let cardId = swapElement.getAttribute('data-card')
+                        let idx = cards.findIndex(card=>{
+                            return card.card === cardId
+                        })
+                        cards[idx].faceup = false;
+                        swapElement.setAttribute('draggable','false')
+                        swapElement.style.backgroundImage = currentBackground
+                        deckEl.appendChild(swapElement)
+                        inc--
+                    }
+                }     
+            }
+})
 function findSuite(string){
     // console.log(`Finding suite of ${string}`)
     string = string.split('')
@@ -374,6 +422,7 @@ function renderFaceUps(){
             let cardEl = document.querySelectorAll(`[data-card="${c.card}"]`)
             cardEl.forEach(el=>{
                 let ref = `${c.url}`
+                el.setAttribute('draggable','true')
                 el.style.backgroundImage = `url(${c.url})`
             })
         }      
@@ -428,7 +477,9 @@ function renderColumn7(){
     while(inc > 0){
         let lastIndex = document.querySelectorAll('#gameBoard .card').length -1
         let cardToMove = document.querySelectorAll('#gameBoard .card')[lastIndex]
-        window.getComputedStyle(cardToMove)
+        column7El.setAttribute('ondragover','allowDrop(event)')
+        column7El.setAttribute('ondrop','drop(event)')
+        
         column7El.appendChild(cardToMove)
     inc--
     }
@@ -438,6 +489,8 @@ function renderColumn6(){
     while(inc > 0){
         let lastIndex = document.querySelectorAll('#gameBoard .card').length -1
         let cardToMove = document.querySelectorAll('#gameBoard .card')[lastIndex]
+        column6El.setAttribute('ondragover','allowDrop(event)')
+        column6El.setAttribute('ondrop','drop(event)')
         column6El.appendChild(cardToMove)
     inc--
     }
@@ -447,6 +500,8 @@ function renderColumn5(){
     while(inc > 0){
         let lastIndex = document.querySelectorAll('#gameBoard .card').length -1
         let cardToMove = document.querySelectorAll('#gameBoard .card')[lastIndex]
+        column5El.setAttribute('ondragover','allowDrop(event)')
+        column5El.setAttribute('ondrop','drop(event)')
         column5El.appendChild(cardToMove)
     inc--
     }
@@ -456,6 +511,8 @@ function renderColumn4(){
     while(inc > 0){
         let lastIndex = document.querySelectorAll('#gameBoard .card').length -1
         let cardToMove = document.querySelectorAll('#gameBoard .card')[lastIndex]
+        column4El.setAttribute('ondragover','allowDrop(event)')
+        column4El.setAttribute('ondrop','drop(event)')
         column4El.appendChild(cardToMove)
     inc--
     }
@@ -465,6 +522,8 @@ function renderColumn3(){
     while(inc > 0){
         let lastIndex = document.querySelectorAll('#gameBoard .card').length -1
         let cardToMove = document.querySelectorAll('#gameBoard .card')[lastIndex]
+        column3El.setAttribute('ondragover','allowDrop(event)')
+        column3El.setAttribute('ondrop','drop(event)')
         column3El.appendChild(cardToMove)
     inc--
     }
@@ -474,6 +533,8 @@ function renderColumn2(){
     while(inc > 0){
         let lastIndex = document.querySelectorAll('#gameBoard .card').length -1
         let cardToMove = document.querySelectorAll('#gameBoard .card')[lastIndex]
+        column2El.setAttribute('ondragover','allowDrop(event)')
+        column2El.setAttribute('ondrop','drop(event)')
         column2El.appendChild(cardToMove)
     inc--
     }
@@ -483,6 +544,8 @@ function renderColumn1(){
     while(inc > 0){
         let lastIndex = document.querySelectorAll('#gameBoard .card').length -1
         let cardToMove = document.querySelectorAll('#gameBoard .card')[lastIndex]
+        column1El.setAttribute('ondragover','allowDrop(event)')
+        column1El.setAttribute('ondrop','drop(event)')
         column1El.appendChild(cardToMove)
     inc--
     }
@@ -498,17 +561,35 @@ function getMatchingEls(tEl){
     matchingEls.push(tEl) 
     return matchingEls;
 }
+function checkForWin(){
+    let trues = 0
+    cards.forEach(card=>{
+        if(card.faceup === true){
+            trues = trues + 1;
+        }else{
+            console.log('not face up')
+        }
+    })
+    if(trues === 52){
+        movesEl.textContent = `You Won with ${moves} moves! Play again!`
+    }else{
+       
+    }
+}
 function renderCards(dataSet){
     dataSet.forEach(element=>{
         cardEl = document.createElement('div')
         cardEl.setAttribute('data-card',element.card)
         cardEl.setAttribute('class','card')
+        cardEl.setAttribute('ondragstart','dragStart(event)')
+        cardEl.setAttribute('ondrop','drop(event)')
+        cardEl.setAttribute('ondragover','allowDrop(event)')
+
+
         gameBoardEl.appendChild(cardEl)
     })
 }
-getColumnEls();
-render();
-renderCards(cards);
+
 function shuffleCards(cardsArray){
     for(let i = cardsArray.length - 1; i > 0; i--){
         const j = Math.floor(Math.random() * i)
@@ -517,269 +598,174 @@ function shuffleCards(cardsArray){
         cardsArray[j] = temp
         }
 }
-
 function render(){
     shuffleCards(cards)
 }
-bodyEl.style.backgroundColor = 'white'
-darkModeBtnEl.addEventListener('click',function(evt){
-    if(bodyEl.style.backgroundColor === 'white'){
-        gameBoardEl.style.border = 'none'
-        bodyEl.style.backgroundColor = 'black'
-        movesHeader.style.color = 'white'
-        console.log('Initiating dark mode')
-    }else{
-        gameBoardEl.style.border = '1px solid white'
-        movesHeader.style.color = 'black'
-        bodyEl.style.backgroundColor = 'white'
-    }
-})
 
+function dragStart(evt){
+        evt.dataTransfer.setData('target-element',evt.target.getAttribute('data-card'))
+}
+function allowDrop(evt){
+    evt.preventDefault();
+}
+function drop(evt){
+    var data = evt.dataTransfer.getData('target-element')
+    let tarEl = document.querySelector(`[data-card="${data}"]`)
+    try{
 
-bodyEl.addEventListener('click',evt=>{
-        
-        let tarEl = evt.target
-        let tarParEl = evt.target.parentElement
-        if(tarEl.getAttribute('class')==='slider round' || tarEl.getAttribute('id') ==='dark-mode-btn'){
-            return;
-        }
-        /// (a.1) --this code processes the clicking of the deck and moving of cards to the faceUpDeckEl and reseting the deck
-       
-        if(tarParEl.getAttribute('id') === 'deck' || tarEl.getAttribute('id') === 'deck'){
-            console.log('processing, now inside bodyEl Event Listener')
-            if(deckEl.children.length> 0){
-                let cardId = tarEl.getAttribute('data-card')
-                let idx = cards.findIndex(card=>{
-                    return card.card === cardId
-                })
-                cards[idx].faceup = true;
-                tarEl.style.backgroundImage = `url('${cards[idx].url}')`
-                faceUpDeckEl.appendChild(tarEl)
-            }else if(deckEl.children.length === 0){
-                let inc = 24
-                // console.log('Processing Swap')
-                while (inc > 0){
-                    let swapElement = faceUpDeckEl.lastChild
-                    let cardId = swapElement.getAttribute('data-card')
-                    let idx = cards.findIndex(card=>{
-                        return card.card === cardId
-                    })
-                    cards[idx].faceup = false;
-                    swapElement.style.backgroundImage = currentBackground
-                    deckEl.appendChild(swapElement)
-                    inc--
+        if(tarEl.getAttribute('data-card').includes('King')){
+            getColumnEls();
+            if(evt.target.getAttribute('id').includes('column')){
+                console.log(data)
+                if(evt.target.children.length === 0){
+                    tarEl.style.marginTop = '-30px'
+                    evt.target.appendChild(tarEl)
+                    moves +=1;
+                    renderFaceUps();
+                    return clickedElements = [];
                 }
-            }     
-        }
-        ////////////////////////////// See above code segment for details -- (a.1)
-        let cardId = tarEl.getAttribute('data-card')
-        let idx = cards.findIndex(card=>{
-            return card.card === cardId
-        })
-        if(tarEl.getAttribute('id')=== 'body-element'){
-            console.log('we have restricted that element')
-            return;
-        }
-        if(columnChecker.includes(tarEl.getAttribute('id'))){
-            console.log('columns cannot be selected')
-            return ;
-        }
-        if(restrictedElementIds.includes(tarEl.getAttribute('id')) || restrictedElementIds.includes(tarParEl.getAttribute('id'))){
-            console.log(`we've restricted that element`)
-            return ;
-        }
-        try{
+            }
+            return clickedElements = [];
             
-            if(cards[idx].faceup === false){
-                console.log('Not face up!')
-                return;
-            }
-        }catch(error){
-            console.log('Deck clicked, but its okay. We caught it')
         }
-        try{
-
-            if(tarEl.getAttribute('data-card').includes('King')){
-                getColumnEls();
-                if(column1El.children.length === 0){
-                    tarEl.style.marginTop = '-30px'
-                    column1El.appendChild(tarEl)
-                }else if(column2El.children.length === 0){
-                    tarEl.style.marginTop = '-30px'
-                    column2El.appendChild(tarEl)
-                }else if(column3El.children.length === 0){
-                    tarEl.style.marginTop = '-30px'
-                    column3El.appendChild(tarEl)
-                }else if(column4El.children.length === 0){
-                    tarEl.style.marginTop = '-30px'
-                    column4El.appendChild(tarEl)
-                }else if(column5El.children.length === 0){
-                    tarEl.style.marginTop = '-30px'
-                    column5El.appendChild(tarEl)
-                }else if(column6El.children.length === 0){
-                    tarEl.style.marginTop = '-30px'
-                    column6El.appendChild(tarEl)
-                }else if(column7El.children.length === 0){
-                    tarEl.style.marginTop = '-30px'
-                    column7El.appendChild(tarEl)
+    }catch(e){
+        console.log('Error at 613' + e)
+    }
+    clickedElements.push(tarEl,evt.target)
+    if(clickedElements.length >= 2){
+        let objOne = clickedElements[0];
+        let objOneId = objOne.getAttribute('data-card')
+        let objOneIdx = cards.findIndex(card=>{
+            return card.card === objOneId
+        })
+        let objTwo = clickedElements[1];
+        let objTwoId = objTwo.getAttribute('id')
+        let objTwoValue = objTwo.getAttribute('data-card')
+        let objTwoIdx = cards.findIndex(card=>{
+            return card.card === objTwoValue
+        })
+        if(suiteDecks.includes(clickedElements[1].getAttribute('id'))){
+            if(objOneId.includes('A')){
+                if(objOne.getAttribute('data-card').includes('Hearts') && objTwo.getAttribute('id').includes('hearts')){
+                    console.log('Passed')
+                    objOne.style.marginTop = '0'
+                    heartsDeckEl.appendChild(objOne)
+                    moves +=1;
+                    renderFaceUps()
+                    return clickedElements = [];
+                }else if(objOne.getAttribute('data-card').includes('Diamonds') && objTwo.getAttribute('id').includes('diamonds')){
+                    console.log('Passed')
+                    objOne.style.marginTop = '0'
+                    diamondsDeckEl.appendChild(objOne)
+                    moves +=1;
+                    renderFaceUps()
+                    return clickedElements = [];
+                }else if(objOne.getAttribute('data-card').includes('Clubs') && objTwo.getAttribute('id').includes('clubs')){
+                    console.log('Passed')
+                    objOne.style.marginTop = '0'
+                    clubsDeckEl.appendChild(objOne)
+                    moves +=1;
+                    renderFaceUps()
+                    return clickedElements = [];
+                }else if(objOne.getAttribute('data-card').includes('Spades') && objTwo.getAttribute('id').includes('spades')){
+                    console.log('Passed')
+                    objOne.style.marginTop = '0'
+                    spadesDeckEl.appendChild(objOne)
+                    moves +=1;
+                    renderFaceUps()
+                    return clickedElements = [];
                 }else{
-                    
+                    moves +=1;
+                    return clickedElements = [];
                 }
-                moves +=1;
-                renderFaceUps();
-                
             }
-        }catch(e){
-            console.log('Error at 613' + e)
-        }
-        if(clickedElements.length >=3){
-            clickedElements = [];
-        }
-        clickedElements.push(tarEl)
-        
-        if(clickedElements.length === 2){
-            let objOne = clickedElements[0];
-            let objOneId = objOne.getAttribute('data-card')
-            let objOneIdx = cards.findIndex(card=>{
-                return card.card === objOneId
-            })
-            let objTwo = clickedElements[1];
-            let objTwoId = objTwo.getAttribute('id')
-            let objTwoValue = objTwo.getAttribute('data-card')
-            let objTwoIdx = cards.findIndex(card=>{
-                return card.card === objTwoValue
-            })
-            if(suiteDecks.includes(clickedElements[1].getAttribute('id'))){
-                if(objOneId.includes('A')){
-                    if(objOne.getAttribute('data-card').includes('Hearts') && objTwo.getAttribute('id').includes('hearts')){
-                        console.log('Passed')
+        }else if(findSuite(objOne.getAttribute('data-card')) === findSuite(objTwo.getAttribute('data-card'))){
+            if(suiteDecks.includes(objTwo.parentElement.getAttribute('id'))){
+                console.log(cards[objOneIdx].value,cards[objTwoIdx].value)
+                a = cards[objOneIdx].value
+                b = cards[objTwoIdx].value
+                console.log(a-b)
+                if(a-b === -1){
+                    if(findSuite(objOne.getAttribute('data-card')) === 'Hearts'){
+                        console.log(`appending ${objOneId} to hearts deck`)
                         objOne.style.marginTop = '0'
                         heartsDeckEl.appendChild(objOne)
                         moves +=1;
-                        renderFaceUps()
+                        renderFaceUps();
                         return clickedElements = [];
-                    }else if(objOne.getAttribute('data-card').includes('Diamonds') && objTwo.getAttribute('id').includes('diamonds')){
-                        console.log('Passed')
+                    }else if(findSuite(objOne.getAttribute('data-card')) === 'Diamonds'){
+                        console.log(`appending ${objOneId} to diamonds deck`)
                         objOne.style.marginTop = '0'
                         diamondsDeckEl.appendChild(objOne)
                         moves +=1;
-                        renderFaceUps()
+                        renderFaceUps();
                         return clickedElements = [];
-                    }else if(objOne.getAttribute('data-card').includes('Clubs') && objTwo.getAttribute('id').includes('clubs')){
-                        console.log('Passed')
+                    }else{
+                        console.log(`Failed to place card with data ${objOneId} in a red deck`)
+                    }
+                }else if(a-b ===1){
+                    if(findSuite(objOne.getAttribute('data-card')) === 'Clubs'){
+                        console.log(`appending ${objOneId} to hearts clubs`)
                         objOne.style.marginTop = '0'
                         clubsDeckEl.appendChild(objOne)
                         moves +=1;
-                        renderFaceUps()
+                        renderFaceUps();
                         return clickedElements = [];
-                    }else if(objOne.getAttribute('data-card').includes('Spades') && objTwo.getAttribute('id').includes('spades')){
-                        console.log('Passed')
+                    }else if(findSuite(objOne.getAttribute('data-card')) === 'Spades'){
+                        console.log(`appending ${objOneId} to spades deck`)
                         objOne.style.marginTop = '0'
                         spadesDeckEl.appendChild(objOne)
                         moves +=1;
-                        renderFaceUps()
-                        return clickedElements = [];
-                    }else{
-                        moves +=1;
-                        return clickedElements = [];
-                    }
-                }
-            }else if(findSuite(objOne.getAttribute('data-card')) === findSuite(objTwo.getAttribute('data-card'))){
-                if(suiteDecks.includes(objTwo.parentElement.getAttribute('id'))){
-                    console.log(cards[objOneIdx].value,cards[objTwoIdx].value)
-                    a = cards[objOneIdx].value
-                    b = cards[objTwoIdx].value
-                    console.log(a-b)
-                    if(a-b === -1){
-                        if(findSuite(objOne.getAttribute('data-card')) === 'Hearts'){
-                            console.log(`appending ${objOneId} to hearts deck`)
-                            objOne.style.marginTop = '0'
-                            heartsDeckEl.appendChild(objOne)
-                            moves +=1;
-                            renderFaceUps();
-                            return clickedElements = [];
-                        }else if(findSuite(objOne.getAttribute('data-card')) === 'Diamonds'){
-                            console.log(`appending ${objOneId} to diamonds deck`)
-                            objOne.style.marginTop = '0'
-                            diamondsDeckEl.appendChild(objOne)
-                            moves +=1;
-                            renderFaceUps();
-                            return clickedElements = [];
-                        }else{
-                            console.log(`Failed to place card with data ${objOneId} in a red deck`)
-                        }
-                    }else if(a-b ===1){
-                        if(findSuite(objOne.getAttribute('data-card')) === 'Clubs'){
-                            console.log(`appending ${objOneId} to hearts clubs`)
-                            objOne.style.marginTop = '0'
-                            clubsDeckEl.appendChild(objOne)
-                            moves +=1;
-                            renderFaceUps();
-                            return clickedElements = [];
-                        }else if(findSuite(objOne.getAttribute('data-card')) === 'Spades'){
-                            console.log(`appending ${objOneId} to spades deck`)
-                            objOne.style.marginTop = '0'
-                            spadesDeckEl.appendChild(objOne)
-                            moves +=1;
-                            renderFaceUps();
-                            return clickedElements = [];
-                        }else{
-                            console.log(`Failed to place card with data ${objOneId} in a black deck`)
-                        }
-                    }
-                }
-            }else if(findSuite(objOne.getAttribute('data-card')) !== findSuite(objTwo.getAttribute('data-card'))){
-                a = cards[objOneIdx].value
-                b = cards[objTwoIdx].value
-                if(objTwo.parentElement.getAttribute('id') === 'face-up-deck'){
-                    return clickedElements = [];
-                }
-                if(findSuite(objOne.getAttribute('data-card'))==='Hearts' || findSuite(objOne.getAttribute('data-card'))==='Diamonds'){
-                    console.log(`${objOneId} with value ${a} + ${objTwoValue} with value ${b} = ${a+b}`)
-                    if(a+b===1){
-                        getMatchingEls(objOne)
-                        matchingEls.forEach(el=>{
-                            objTwo.parentElement.appendChild(el)
-                        })
-                        objOne.style.marginTop = '-70px'
-                        // objTwo.parentElement.appendChild(objOne);
-                        moves +=1;
                         renderFaceUps();
                         return clickedElements = [];
                     }else{
-                        return clickedElements = [];
-                    }
-                }else if(findSuite(objOne.getAttribute('data-card'))==='Clubs' || findSuite(objOne.getAttribute('data-card'))==='Spades'){
-                    if(a+b===-1){
-                        getMatchingEls(objOne)
-                        matchingEls.forEach(el=>{
-                            objTwo.parentElement.appendChild(el)
-                        })
-                        objOne.style.marginTop = '-70px'
-                        // objTwo.parentElement.appendChild(objOne);
-                        moves +=1;
-                        renderFaceUps();
-                        return clickedElements = [];
-                    }else{
-                        return clickedElements = [];
+                        console.log(`Failed to place card with data ${objOneId} in a black deck`)
                     }
                 }
-
-                
-            }else{
+            }
+        }else if(findSuite(objOne.getAttribute('data-card')) !== findSuite(objTwo.getAttribute('data-card'))){
+            a = cards[objOneIdx].value
+            b = cards[objTwoIdx].value
+            if(objTwo.parentElement.getAttribute('id') === 'face-up-deck'){
                 return clickedElements = [];
             }
-        }
-        
-    
-    
-    console.log(clickedElements)
-//     console.log(tarEl.getAttribute('data-card'))
-//     if(suiteDecks.includes(clickedElements[1].getAttribute('id'))){
-//         console.log(tarEl.getAttribute('id'))
-// }
+            if(findSuite(objOne.getAttribute('data-card'))==='Hearts' || findSuite(objOne.getAttribute('data-card'))==='Diamonds'){
+                console.log(`${objOneId} with value ${a} + ${objTwoValue} with value ${b} = ${a+b}`)
+                if(a+b===1){
+                    getMatchingEls(objOne)
+                    matchingEls.forEach(el=>{
+                        objTwo.parentElement.appendChild(el)
+                    })
+                    objOne.style.marginTop = '-70px'
+                    // objTwo.parentElement.appendChild(objOne);
+                    moves +=1;
+                    renderFaceUps();
+                    return clickedElements = [];
+                }else{
+                    return clickedElements = [];
+                }
+            }else if(findSuite(objOne.getAttribute('data-card'))==='Clubs' || findSuite(objOne.getAttribute('data-card'))==='Spades'){
+                if(a+b===-1){
+                    getMatchingEls(objOne)
+                    matchingEls.forEach(el=>{
+                        objTwo.parentElement.appendChild(el)
+                    })
+                    objOne.style.marginTop = '-70px'
+                    // objTwo.parentElement.appendChild(objOne);
+                    moves +=1;
+                    renderFaceUps();
+                    return clickedElements = [];
+                }else{
+                    return clickedElements = [];
+                }
+            }
 
-        
-})    
-    
-    
+        }else{
+            return clickedElements = [];
+        }
+    }
+    checkForWin();
+}
+getColumnEls();
+render();
+renderCards(cards);
