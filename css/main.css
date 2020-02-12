@@ -59,8 +59,20 @@ body{
     color: white;
     font-size: 25px;
     z-index: 10;
-    margin:141px 0 0 270px ;
+    margin:141px 0 0 40% ;
     
+    position: absolute;
+    background-color: #004E1C;
+}
+#replay-btn{
+    height: 50px;
+    width: 100px;
+    border-radius: 7px;
+    color: white;
+    font-size: 25px;
+    z-index: 10;
+    margin:141px 0 0 50% ;
+    visibility: hidden;
     position: absolute;
     background-color: #004E1C;
 }
