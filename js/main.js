@@ -308,12 +308,13 @@ replayBtnEl.addEventListener('click',function(evt){
 
 })
 bodyEl.style.backgroundColor = 'black'
-winEl.style.cololor = 'white'
+winEl.style.color = 'white'
 movesEl.style.color = 'white'
 darkModeBtnEl.addEventListener('click',function(evt){
     if(bodyEl.style.backgroundColor === 'white'){
         gameBoardEl.style.border = 'none'
         winEl.style.color = 'white'
+        movesEl.style.color ='white'
         bodyEl.style.backgroundColor = 'black'
         movesHeader.style.color = 'white'
         console.log('Initiating dark mode')
@@ -321,6 +322,7 @@ darkModeBtnEl.addEventListener('click',function(evt){
         gameBoardEl.style.border = '1px solid white'
         movesHeader.style.color = 'black'
         winEl.style.color = 'black'
+        movesEl.style.color = 'black'
         bodyEl.style.backgroundColor = 'white'
     }
 })
