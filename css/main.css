@@ -587,9 +587,12 @@ body{
       border-radius: 20%;
       background-image: url('../bg_images/cones-bg.jpg');
   }
+<<<<<<< HEAD
   #winner{
       position: absolute;
       margin-top: 700px;
       font-size: 60px;
       margin-left: 38%;
   }
+=======
+>>>>>>> 32eea0aa57950a2012f714db5d0c77318ff9ff8a
