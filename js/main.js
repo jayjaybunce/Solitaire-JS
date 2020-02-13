@@ -308,7 +308,8 @@ replayBtnEl.addEventListener('click',function(evt){
 
 })
 bodyEl.style.backgroundColor = 'black'
-winEl.style.cololor = 'white'
+winEl.style.color = 'white'
+movesEl.style.color = 'white'
 darkModeBtnEl.addEventListener('click',function(evt){
     if(bodyEl.style.backgroundColor === 'white'){
         gameBoardEl.style.border = 'none'
