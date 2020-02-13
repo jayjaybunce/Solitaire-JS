@@ -228,6 +228,9 @@ let column4El;
 let column3El;
 let column2El;
 let column1El;
+let fanSoundEl;
+let placeSoundEl;
+let flipSoundEl;
 let clicked = [];
 let allColumns = document.querySelectorAll('#column7,#column6,#column5,#column4,#column3,#column2,#column1,#deck-spades,#deck-hearts,#deck-diamonds,#deck-clubs')
 let gameBoardEl = document.querySelector('#gameBoard')
@@ -246,6 +249,8 @@ let replayBtnEl = document.querySelector('#replay-btn')
 let winEl = document.querySelector('#winner h3')
 //EVENT LISTENERS
 playBtnEl.addEventListener('click',function(evt){
+    fanSound();
+    placeSound();
     playBtnEl.style.visibility = 'hidden'
     setTimeout(function(){
         placeHolderEls.forEach(el=>{
@@ -264,6 +269,10 @@ playBtnEl.addEventListener('click',function(evt){
     renderDeck();
     expandColums();
     setTimeout(function(){
+        fanSoundEl.play();
+    },950)
+    setTimeout(function(){
+        
         renderFaceUps();
     },2000)
     replayBtnEl.style.visibility = 'visible'
@@ -290,6 +299,9 @@ replayBtnEl.addEventListener('click',function(evt){
     renderDeck();
     expandColums();
     moves = 0;
+    setTimeout(function(){
+        fanSoundEl.play();
+    },950)
     renderFaceUps();
     winEl.textContent = ''
     
@@ -328,13 +340,17 @@ deckEl.addEventListener('click',function(evt){
                     let idx = cards.findIndex(card=>{
                         return card.card === cardId
                     })
+                    
                     cards[idx].faceup = true;
                     tarEl.setAttribute('draggable','true')
                     tarEl.style.backgroundImage = `url('${cards[idx].url}')`
+                    
                     faceUpDeckEl.appendChild(tarEl)
+                    placeSoundEl.play();
                 }else if(deckEl.children.length === 0){
                     let inc = 24
                     // console.log('Processing Swap')
+                    
                     while (inc > 0){
                         let swapElement = faceUpDeckEl.lastChild
                         let cardId = swapElement.getAttribute('data-card')
@@ -345,8 +361,10 @@ deckEl.addEventListener('click',function(evt){
                         swapElement.setAttribute('draggable','false')
                         swapElement.style.backgroundImage = currentBackground
                         deckEl.appendChild(swapElement)
+                        
                         inc--
                     }
+                    fanSoundEl.play();
                 }     
             }
 })
@@ -614,6 +632,31 @@ function render(){
     shuffleCards(cards)
 }
 
+
+function fanSound(){
+    fanSoundEl = document.createElement('audio')
+    fanSoundEl.setAttribute('src','../sounds/cardFan1.wav')
+    fanSoundEl.setAttribute('preload','auto')
+    document.body.appendChild(fanSoundEl)
+    return fanSoundEl;
+}
+function placeSound(){
+    placeSoundEl = document.createElement('audio')
+    placeSoundEl.setAttribute('src','../sounds/cardPlace1.wav')
+    placeSoundEl.setAttribute('preload','auto')
+    document.body.appendChild(placeSoundEl)
+    return placeSoundEl;
+}
+
+function flipSound(){
+    flipSoundEl = document.createElement('audio')
+    flipSoundEl.setAttribute('src','../sounds/cardSlide1.wav')
+    flipSoundEl.setAttribute('preload','auto')
+    document.body.appendChild(flipSoundEl)
+    return flipSoundEl;
+}
+
+
 function dragStart(evt){
         evt.dataTransfer.setData('target-element',evt.target.getAttribute('data-card'))
 }
@@ -635,6 +678,7 @@ function drop(evt){
                     matchingEls.forEach(el=>{
                         evt.target.appendChild(el)
                     })
+                    placeSoundEl.play();
                     moves +=1;
                     checkForWin();
                     renderFaceUps();
@@ -674,6 +718,7 @@ function drop(evt){
                     console.log('Passed')
                     objOne.style.marginTop = '0'
                     heartsDeckEl.appendChild(objOne)
+                    placeSoundEl.play();
                     moves +=1;
                     renderFaceUps()
                     checkForWin();
@@ -682,6 +727,7 @@ function drop(evt){
                     console.log('Passed')
                     objOne.style.marginTop = '0'
                     diamondsDeckEl.appendChild(objOne)
+                    placeSoundEl.play();
                     moves +=1;
                     renderFaceUps()
                     checkForWin();
@@ -690,6 +736,7 @@ function drop(evt){
                     console.log('Passed')
                     objOne.style.marginTop = '0'
                     clubsDeckEl.appendChild(objOne)
+                    placeSoundEl.play();
                     moves +=1;
                     renderFaceUps()
                     checkForWin();
@@ -698,6 +745,7 @@ function drop(evt){
                     console.log('Passed')
                     objOne.style.marginTop = '0'
                     spadesDeckEl.appendChild(objOne)
+                    placeSoundEl.play();
                     moves +=1;
                     renderFaceUps()
                     checkForWin();
@@ -718,6 +766,7 @@ function drop(evt){
                         console.log(`appending ${objOneId} to hearts deck`)
                         objOne.style.marginTop = '0'
                         heartsDeckEl.appendChild(objOne)
+                        placeSoundEl.play();
                         moves +=1;
                         renderFaceUps();
                         checkForWin();
@@ -726,6 +775,7 @@ function drop(evt){
                         console.log(`appending ${objOneId} to diamonds deck`)
                         objOne.style.marginTop = '0'
                         diamondsDeckEl.appendChild(objOne)
+                        placeSoundEl.play();
                         moves +=1;
                         renderFaceUps();
                         checkForWin();
@@ -738,6 +788,7 @@ function drop(evt){
                         console.log(`appending ${objOneId} to hearts clubs`)
                         objOne.style.marginTop = '0'
                         clubsDeckEl.appendChild(objOne)
+                        placeSoundEl.play();
                         moves +=1;
                         renderFaceUps();
                         checkForWin();
@@ -746,6 +797,7 @@ function drop(evt){
                         console.log(`appending ${objOneId} to spades deck`)
                         objOne.style.marginTop = '0'
                         spadesDeckEl.appendChild(objOne)
+                        placeSoundEl.play();
                         moves +=1;
                         renderFaceUps();
                         checkForWin();
@@ -768,6 +820,7 @@ function drop(evt){
                     matchingEls.forEach(el=>{
                         objTwo.parentElement.appendChild(el)
                     })
+                    placeSoundEl.play();
                     objOne.style.marginTop = '-70px'
                     // objTwo.parentElement.appendChild(objOne);
                     moves +=1;
@@ -783,6 +836,7 @@ function drop(evt){
                     matchingEls.forEach(el=>{
                         objTwo.parentElement.appendChild(el)
                     })
+                    placeSoundEl.play();
                     objOne.style.marginTop = '-70px'
                     // objTwo.parentElement.appendChild(objOne);
                     moves +=1;
