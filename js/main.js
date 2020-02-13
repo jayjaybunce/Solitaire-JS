@@ -243,6 +243,7 @@ let diamondsDeckEl = document.querySelector('#deck-diamonds')
 let clubsDeckEl = document.querySelector('#deck-clubs')
 let darkModeBtnEl = document.querySelector('#dark-mode-btn')
 let replayBtnEl = document.querySelector('#replay-btn')
+let winEl = document.querySelector('#winner h3')
 //EVENT LISTENERS
 playBtnEl.addEventListener('click',function(evt){
     playBtnEl.style.visibility = 'hidden'
@@ -290,6 +291,7 @@ replayBtnEl.addEventListener('click',function(evt){
     expandColums();
     moves = 0;
     renderFaceUps();
+    winEl.textContent = ''
     
 
 })
@@ -345,16 +347,21 @@ deckEl.addEventListener('click',function(evt){
 })
 function findSuite(string){
     // console.log(`Finding suite of ${string}`)
-    string = string.split('')
-    let suiteBuilder =[]
-    for(let i = string.length-1;i >= 0;i--){
-        if(string[i] ===" "){
-        break;
-        }else{
-        suiteBuilder.push(string[i])
+    try{
+        string = string.split('')
+        let suiteBuilder =[]
+        for(let i = string.length-1;i >= 0;i--){
+            if(string[i] ===" "){
+            break;
+            }else{
+            suiteBuilder.push(string[i])
+            }
         }
+
+        return suiteBuilder = suiteBuilder.reverse('').join('')
+    }catch(error){
+
     }
-    return suiteBuilder = suiteBuilder.reverse('').join('')
 }
     
 function renderFaceUps(){
@@ -462,7 +469,7 @@ function renderDeck(){
     while(inc > 0){
         let lastIndex = document.querySelectorAll('#gameBoard .card').length -1
         let cardToMove = document.querySelectorAll('#gameBoard .card')[lastIndex]
-        
+        deckEl.style.marginTop = '0'
         deckEl.appendChild(cardToMove)
     inc--
     }
@@ -567,11 +574,11 @@ function checkForWin(){
         if(card.faceup === true){
             trues = trues + 1;
         }else{
-            console.log('not face up')
+            
         }
     })
     if(trues === 52){
-        movesEl.textContent = `You Won with ${moves} moves! Play again!`
+        winEl.textContent = `You've Won!`
     }else{
        
     }
@@ -621,6 +628,7 @@ function drop(evt){
                     tarEl.style.marginTop = '-30px'
                     evt.target.appendChild(tarEl)
                     moves +=1;
+                    checkForWin();
                     renderFaceUps();
                     return clickedElements = [];
                 }
@@ -632,6 +640,14 @@ function drop(evt){
         console.log('Error at 613' + e)
     }
     clickedElements.push(tarEl,evt.target)
+    try{
+        if(clickedElements[1].getAttribute('id').includes('column')){
+            return clickedElements = [];
+        }
+
+    }catch(error){
+
+    }
     if(clickedElements.length >= 2){
         let objOne = clickedElements[0];
         let objOneId = objOne.getAttribute('data-card')
@@ -652,6 +668,7 @@ function drop(evt){
                     heartsDeckEl.appendChild(objOne)
                     moves +=1;
                     renderFaceUps()
+                    checkForWin();
                     return clickedElements = [];
                 }else if(objOne.getAttribute('data-card').includes('Diamonds') && objTwo.getAttribute('id').includes('diamonds')){
                     console.log('Passed')
@@ -659,6 +676,7 @@ function drop(evt){
                     diamondsDeckEl.appendChild(objOne)
                     moves +=1;
                     renderFaceUps()
+                    checkForWin();
                     return clickedElements = [];
                 }else if(objOne.getAttribute('data-card').includes('Clubs') && objTwo.getAttribute('id').includes('clubs')){
                     console.log('Passed')
@@ -666,6 +684,7 @@ function drop(evt){
                     clubsDeckEl.appendChild(objOne)
                     moves +=1;
                     renderFaceUps()
+                    checkForWin();
                     return clickedElements = [];
                 }else if(objOne.getAttribute('data-card').includes('Spades') && objTwo.getAttribute('id').includes('spades')){
                     console.log('Passed')
@@ -673,6 +692,7 @@ function drop(evt){
                     spadesDeckEl.appendChild(objOne)
                     moves +=1;
                     renderFaceUps()
+                    checkForWin();
                     return clickedElements = [];
                 }else{
                     moves +=1;
@@ -692,6 +712,7 @@ function drop(evt){
                         heartsDeckEl.appendChild(objOne)
                         moves +=1;
                         renderFaceUps();
+                        checkForWin();
                         return clickedElements = [];
                     }else if(findSuite(objOne.getAttribute('data-card')) === 'Diamonds'){
                         console.log(`appending ${objOneId} to diamonds deck`)
@@ -699,6 +720,7 @@ function drop(evt){
                         diamondsDeckEl.appendChild(objOne)
                         moves +=1;
                         renderFaceUps();
+                        checkForWin();
                         return clickedElements = [];
                     }else{
                         console.log(`Failed to place card with data ${objOneId} in a red deck`)
@@ -710,6 +732,7 @@ function drop(evt){
                         clubsDeckEl.appendChild(objOne)
                         moves +=1;
                         renderFaceUps();
+                        checkForWin();
                         return clickedElements = [];
                     }else if(findSuite(objOne.getAttribute('data-card')) === 'Spades'){
                         console.log(`appending ${objOneId} to spades deck`)
@@ -717,6 +740,7 @@ function drop(evt){
                         spadesDeckEl.appendChild(objOne)
                         moves +=1;
                         renderFaceUps();
+                        checkForWin();
                         return clickedElements = [];
                     }else{
                         console.log(`Failed to place card with data ${objOneId} in a black deck`)
@@ -740,6 +764,7 @@ function drop(evt){
                     // objTwo.parentElement.appendChild(objOne);
                     moves +=1;
                     renderFaceUps();
+                    checkForWin();
                     return clickedElements = [];
                 }else{
                     return clickedElements = [];
@@ -754,6 +779,7 @@ function drop(evt){
                     // objTwo.parentElement.appendChild(objOne);
                     moves +=1;
                     renderFaceUps();
+                    checkForWin();
                     return clickedElements = [];
                 }else{
                     return clickedElements = [];
