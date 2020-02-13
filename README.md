@@ -13,7 +13,7 @@
 
 
 ## How To Play:
-### If you aren't well experienced in classic Solitaire, the main objective is to get all of the cards, face up in stacks starting with King on the very bottom, followed by Queen, Jack, 10 and so on. You can't just get all the cards in any order, the color of the card must be opposite the one below it. IE, placing a Queen of Hearts on a King of Diamonds would not work. The suite decks on the right can be used to move cards of the same order in ascending order (Ace down first, then 2, 3 and so on.) to free up space for other cards.
+#### If you aren't well experienced in classic Solitaire, the main objective is to get all of the cards, face up in stacks starting with King on the very bottom, followed by Queen, Jack, 10 and so on. You can't just get all the cards in any order, the color of the card must be opposite the one below it. IE, placing a Queen of Hearts on a King of Diamonds would not work. The suite decks on the right can be used to move cards of the same order in ascending order (Ace down first, then 2, 3 and so on.) to free up space for other cards.
 
 
 # You can play here: https://jayjaybunce.github.io/Solitaire-JS/ 
