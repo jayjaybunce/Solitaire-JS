@@ -469,7 +469,7 @@ function renderDeck(){
     while(inc > 0){
         let lastIndex = document.querySelectorAll('#gameBoard .card').length -1
         let cardToMove = document.querySelectorAll('#gameBoard .card')[lastIndex]
-        
+        deckEl.style.marginTop = '0'
         deckEl.appendChild(cardToMove)
     inc--
     }
