@@ -243,10 +243,7 @@ let diamondsDeckEl = document.querySelector('#deck-diamonds')
 let clubsDeckEl = document.querySelector('#deck-clubs')
 let darkModeBtnEl = document.querySelector('#dark-mode-btn')
 let replayBtnEl = document.querySelector('#replay-btn')
-<<<<<<< HEAD
 let winEl = document.querySelector('#winner h3')
-=======
->>>>>>> 32eea0aa57950a2012f714db5d0c77318ff9ff8a
 //EVENT LISTENERS
 playBtnEl.addEventListener('click',function(evt){
     playBtnEl.style.visibility = 'hidden'
@@ -294,10 +291,7 @@ replayBtnEl.addEventListener('click',function(evt){
     expandColums();
     moves = 0;
     renderFaceUps();
-<<<<<<< HEAD
     winEl.textContent = ''
-=======
->>>>>>> 32eea0aa57950a2012f714db5d0c77318ff9ff8a
     
 
 })
@@ -580,19 +574,11 @@ function checkForWin(){
         if(card.faceup === true){
             trues = trues + 1;
         }else{
-<<<<<<< HEAD
             
         }
     })
     if(trues === 52){
         winEl.textContent = `You've Won!`
-=======
-            console.log('not face up')
-        }
-    })
-    if(trues === 52){
-        movesEl.textContent = `You Won with ${moves} moves! Play again!`
->>>>>>> 32eea0aa57950a2012f714db5d0c77318ff9ff8a
     }else{
        
     }
@@ -642,17 +628,13 @@ function drop(evt){
                     tarEl.style.marginTop = '-30px'
                     evt.target.appendChild(tarEl)
                     moves +=1;
-<<<<<<< HEAD
                     checkForWin();
-=======
->>>>>>> 32eea0aa57950a2012f714db5d0c77318ff9ff8a
                     renderFaceUps();
                     return clickedElements = [];
                 }
             }
             return clickedElements = [];
             
-<<<<<<< HEAD
         }
     }catch(e){
         console.log('Error at 613' + e)
@@ -666,13 +648,6 @@ function drop(evt){
     }catch(error){
 
     }
-=======
-        }
-    }catch(e){
-        console.log('Error at 613' + e)
-    }
-    clickedElements.push(tarEl,evt.target)
->>>>>>> 32eea0aa57950a2012f714db5d0c77318ff9ff8a
     if(clickedElements.length >= 2){
         let objOne = clickedElements[0];
         let objOneId = objOne.getAttribute('data-card')
@@ -693,10 +668,7 @@ function drop(evt){
                     heartsDeckEl.appendChild(objOne)
                     moves +=1;
                     renderFaceUps()
-<<<<<<< HEAD
                     checkForWin();
-=======
->>>>>>> 32eea0aa57950a2012f714db5d0c77318ff9ff8a
                     return clickedElements = [];
                 }else if(objOne.getAttribute('data-card').includes('Diamonds') && objTwo.getAttribute('id').includes('diamonds')){
                     console.log('Passed')
@@ -704,10 +676,7 @@ function drop(evt){
                     diamondsDeckEl.appendChild(objOne)
                     moves +=1;
                     renderFaceUps()
-<<<<<<< HEAD
                     checkForWin();
-=======
->>>>>>> 32eea0aa57950a2012f714db5d0c77318ff9ff8a
                     return clickedElements = [];
                 }else if(objOne.getAttribute('data-card').includes('Clubs') && objTwo.getAttribute('id').includes('clubs')){
                     console.log('Passed')
@@ -715,10 +684,7 @@ function drop(evt){
                     clubsDeckEl.appendChild(objOne)
                     moves +=1;
                     renderFaceUps()
-<<<<<<< HEAD
                     checkForWin();
-=======
->>>>>>> 32eea0aa57950a2012f714db5d0c77318ff9ff8a
                     return clickedElements = [];
                 }else if(objOne.getAttribute('data-card').includes('Spades') && objTwo.getAttribute('id').includes('spades')){
                     console.log('Passed')
@@ -726,10 +692,7 @@ function drop(evt){
                     spadesDeckEl.appendChild(objOne)
                     moves +=1;
                     renderFaceUps()
-<<<<<<< HEAD
                     checkForWin();
-=======
->>>>>>> 32eea0aa57950a2012f714db5d0c77318ff9ff8a
                     return clickedElements = [];
                 }else{
                     moves +=1;
@@ -749,10 +712,7 @@ function drop(evt){
                         heartsDeckEl.appendChild(objOne)
                         moves +=1;
                         renderFaceUps();
-<<<<<<< HEAD
                         checkForWin();
-=======
->>>>>>> 32eea0aa57950a2012f714db5d0c77318ff9ff8a
                         return clickedElements = [];
                     }else if(findSuite(objOne.getAttribute('data-card')) === 'Diamonds'){
                         console.log(`appending ${objOneId} to diamonds deck`)
@@ -760,10 +720,7 @@ function drop(evt){
                         diamondsDeckEl.appendChild(objOne)
                         moves +=1;
                         renderFaceUps();
-<<<<<<< HEAD
                         checkForWin();
-=======
->>>>>>> 32eea0aa57950a2012f714db5d0c77318ff9ff8a
                         return clickedElements = [];
                     }else{
                         console.log(`Failed to place card with data ${objOneId} in a red deck`)
@@ -775,10 +732,7 @@ function drop(evt){
                         clubsDeckEl.appendChild(objOne)
                         moves +=1;
                         renderFaceUps();
-<<<<<<< HEAD
                         checkForWin();
-=======
->>>>>>> 32eea0aa57950a2012f714db5d0c77318ff9ff8a
                         return clickedElements = [];
                     }else if(findSuite(objOne.getAttribute('data-card')) === 'Spades'){
                         console.log(`appending ${objOneId} to spades deck`)
@@ -786,10 +740,7 @@ function drop(evt){
                         spadesDeckEl.appendChild(objOne)
                         moves +=1;
                         renderFaceUps();
-<<<<<<< HEAD
                         checkForWin();
-=======
->>>>>>> 32eea0aa57950a2012f714db5d0c77318ff9ff8a
                         return clickedElements = [];
                     }else{
                         console.log(`Failed to place card with data ${objOneId} in a black deck`)
@@ -813,10 +764,7 @@ function drop(evt){
                     // objTwo.parentElement.appendChild(objOne);
                     moves +=1;
                     renderFaceUps();
-<<<<<<< HEAD
                     checkForWin();
-=======
->>>>>>> 32eea0aa57950a2012f714db5d0c77318ff9ff8a
                     return clickedElements = [];
                 }else{
                     return clickedElements = [];
@@ -831,10 +779,7 @@ function drop(evt){
                     // objTwo.parentElement.appendChild(objOne);
                     moves +=1;
                     renderFaceUps();
-<<<<<<< HEAD
                     checkForWin();
-=======
->>>>>>> 32eea0aa57950a2012f714db5d0c77318ff9ff8a
                     return clickedElements = [];
                 }else{
                     return clickedElements = [];
@@ -849,8 +794,4 @@ function drop(evt){
 }
 getColumnEls();
 render();
-<<<<<<< HEAD
 renderCards(cards);
-=======
-renderCards(cards);
->>>>>>> 32eea0aa57950a2012f714db5d0c77318ff9ff8a
