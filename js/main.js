@@ -141,7 +141,7 @@ conesBgEl.addEventListener('click',evt=>{
 })
 // CLASSES,LETS,VARS and CONSTS HERE
 ////// LISTENER REBUILD IN PROGRESSS - NOT A WORKING VERSION
-let currentBackground = `url("../card_images/blue_back.jpg")`
+let currentBackground = `url("../card_images/Red_back.jpg")`
 class CARD {
     constructor(suite,color,face,value,name){
         this.suite = suite;
@@ -276,10 +276,10 @@ replayBtnEl.addEventListener('click',function(evt){
         }
     })
     allCardEls.forEach(card=>{
-        card.style.backgroundImage = currentBackground
-        gameBoardEl.appendChild(card)
+        card.remove()
     })
     shuffleCards(cards)
+    renderCards(cards)
     renderColumn7();
     renderColumn6();
     renderColumn5();
@@ -295,19 +295,24 @@ replayBtnEl.addEventListener('click',function(evt){
     
 
 })
-bodyEl.style.backgroundColor = 'white'
+bodyEl.style.backgroundColor = 'black'
+winEl.style.cololor = 'white'
 darkModeBtnEl.addEventListener('click',function(evt){
     if(bodyEl.style.backgroundColor === 'white'){
         gameBoardEl.style.border = 'none'
+        winEl.style.color = 'white'
         bodyEl.style.backgroundColor = 'black'
         movesHeader.style.color = 'white'
         console.log('Initiating dark mode')
     }else{
         gameBoardEl.style.border = '1px solid white'
         movesHeader.style.color = 'black'
+        winEl.style.color = 'black'
         bodyEl.style.backgroundColor = 'white'
     }
 })
+bodyEl.style.backgroundColor = 'black'
+winEl.style.cololor = 'white'
 deckEl.addEventListener('click',function(evt){
     let tarEl = evt.target
             let tarParEl = evt.target.parentElement
@@ -626,7 +631,10 @@ function drop(evt){
                 console.log(data)
                 if(evt.target.children.length === 0){
                     tarEl.style.marginTop = '-30px'
-                    evt.target.appendChild(tarEl)
+                    getMatchingEls(tarEl)
+                    matchingEls.forEach(el=>{
+                        evt.target.appendChild(el)
+                    })
                     moves +=1;
                     checkForWin();
                     renderFaceUps();
