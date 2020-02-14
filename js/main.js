@@ -11,7 +11,6 @@ purpleCardBacks.addEventListener('click',evt=>{
             let cEl = document.querySelector(`[data-card='${card.card}']`)
             cEl.style.backgroundImage = `url('../card_images/purple_back.jpg')`
             return currentBackground = `url('../card_images/purple_back.jpg')`
-            
         })
     })    
 })
@@ -27,7 +26,6 @@ greyCardBacks.addEventListener('click',evt=>{
             let cEl = document.querySelector(`[data-card='${card.card}']`)
             cEl.style.backgroundImage = `url('../card_images/Gray_back.jpg')`
             return currentBackground = `url('../card_images/Grey_back.jpg')`
-            
         })
     })    
 })
@@ -43,7 +41,6 @@ redCardBacks.addEventListener('click',evt=>{
             let cEl = document.querySelector(`[data-card='${card.card}']`)
             cEl.style.backgroundImage = `url('../card_images/Red_back.jpg')`
             return currentBackground = `url('../card_images/Red_back.jpg')`
-            
         })
     })    
 })
@@ -59,7 +56,6 @@ yellowCardBacks.addEventListener('click',evt=>{
             let cEl = document.querySelector(`[data-card='${card.card}']`)
             cEl.style.backgroundImage = `url('../card_images/Yellow_back.jpg')`
             return currentBackground = `url('../card_images/Yellow_back.jpg')`
-            
         })
     })    
 })
@@ -75,7 +71,6 @@ greenCardBacks.addEventListener('click',evt=>{
             let cEl = document.querySelector(`[data-card='${card.card}']`)
             cEl.style.backgroundImage = `url('../card_images/Green_back.jpg')`
             return currentBackground = `url('../card_images/Green_back.jpg')`
-            
         })
     })    
 })
@@ -91,7 +86,6 @@ willowCardBacks.addEventListener('click',evt=>{
             let cEl = document.querySelector(`[data-card='${card.card}']`)
             cEl.style.backgroundImage = `url('../card_images/willow.jpg')`
             return currentBackground = `url('../card_images/willow.jpg')`
-            
         })
     })    
 })
@@ -107,7 +101,6 @@ lyraCardBacks.addEventListener('click',evt=>{
             let cEl = document.querySelector(`[data-card='${card.card}']`)
             cEl.style.backgroundImage = `url('../card_images/lyra.jpg')`
             return currentBackground = `url('../card_images/lyra.jpg')`
-            
         })
     })    
 })
@@ -139,8 +132,6 @@ let conesBgEl = document.querySelector('#cones-bg')
 conesBgEl.addEventListener('click',evt=>{
     gameBoardEl.style.backgroundImage = `url('../bg_images/cones-bg.jpg')`
 })
-// CLASSES,LETS,VARS and CONSTS HERE
-////// LISTENER REBUILD IN PROGRESSS - NOT A WORKING VERSION
 let currentBackground = `url("../card_images/Red_back.jpg")`
 class CARD {
     constructor(suite,color,face,value,name){
@@ -151,7 +142,6 @@ class CARD {
         this.name = name;
         this.faceUp = false;
         this.active = false;
-    
     }
     activate(){
         this.active = true;
@@ -247,7 +237,6 @@ let clubsDeckEl = document.querySelector('#deck-clubs')
 let darkModeBtnEl = document.querySelector('#dark-mode-btn')
 let replayBtnEl = document.querySelector('#replay-btn')
 let winEl = document.querySelector('#winner h3')
-//EVENT LISTENERS
 playBtnEl.addEventListener('click',function(evt){
     fanSound();
     placeSound();
@@ -272,7 +261,6 @@ playBtnEl.addEventListener('click',function(evt){
         fanSoundEl.play();
     },950)
     setTimeout(function(){
-        
         renderFaceUps();
     },2000)
     replayBtnEl.style.visibility = 'visible'
@@ -304,8 +292,6 @@ replayBtnEl.addEventListener('click',function(evt){
     },950)
     renderFaceUps();
     winEl.textContent = ''
-    
-
 })
 bodyEl.style.backgroundColor = 'black'
 winEl.style.color = 'white'
@@ -334,26 +320,20 @@ deckEl.addEventListener('click',function(evt){
             if(tarEl.getAttribute('class')==='slider round' || tarEl.getAttribute('id') ==='dark-mode-btn'){
                 return;
             }
-            /// (a.1) --this code processes the clicking of the deck and moving of cards to the faceUpDeckEl and reseting the deck
-           
             if(tarParEl.getAttribute('id') === 'deck' || tarEl.getAttribute('id') === 'deck'){
-                console.log('processing, now inside bodyEl Event Listener')
                 if(deckEl.children.length> 0){
                     let cardId = tarEl.getAttribute('data-card')
                     let idx = cards.findIndex(card=>{
                         return card.card === cardId
                     })
-                    
                     cards[idx].faceup = true;
                     tarEl.setAttribute('draggable','true')
                     tarEl.style.backgroundImage = `url('${cards[idx].url}')`
-                    
                     faceUpDeckEl.appendChild(tarEl)
                     placeSoundEl.play();
                 }else if(deckEl.children.length === 0){
                     let inc = 24
                     // console.log('Processing Swap')
-                    
                     while (inc > 0){
                         let swapElement = faceUpDeckEl.lastChild
                         let cardId = swapElement.getAttribute('data-card')
@@ -364,7 +344,6 @@ deckEl.addEventListener('click',function(evt){
                         swapElement.setAttribute('draggable','false')
                         swapElement.style.backgroundImage = currentBackground
                         deckEl.appendChild(swapElement)
-                        
                         inc--
                     }
                     fanSoundEl.play();
@@ -372,7 +351,6 @@ deckEl.addEventListener('click',function(evt){
             }
 })
 function findSuite(string){
-    // console.log(`Finding suite of ${string}`)
     try{
         string = string.split('')
         let suiteBuilder =[]
@@ -383,13 +361,10 @@ function findSuite(string){
             suiteBuilder.push(string[i])
             }
         }
-
         return suiteBuilder = suiteBuilder.reverse('').join('')
     }catch(error){
-
     }
 }
-    
 function renderFaceUps(){
     if(column7El.children.length > 0){
         let lastCol7 = column7El.lastChild.getAttribute('data-card')
@@ -398,14 +373,12 @@ function renderFaceUps(){
         })
     cards[indexLastCard7].faceup = true;
     }
-
     if(column6El.children.length >0){
         let lastCol6 = column6El.lastChild.getAttribute('data-card')
         let indexLastCard6 = cards.findIndex(el=>{
             return (el.card === lastCol6)
         })
         cards[indexLastCard6].faceup = true;
-
     }
     if(column5El.children.length>0){
         let lastCol5 = column5El.lastChild.getAttribute('data-card')
@@ -413,7 +386,6 @@ function renderFaceUps(){
             return (el.card === lastCol5)
         })
         cards[indexLastCard5].faceup = true;
-
     }
     if(column4El.children.length>0){
         let lastCol4 = column4El.lastChild.getAttribute('data-card')
@@ -421,7 +393,6 @@ function renderFaceUps(){
             return (el.card === lastCol4)
         })
         cards[indexLastCard4].faceup = true;
-
     }
     if(column3El.children.length>0){
         let lastCol3 = column3El.lastChild.getAttribute('data-card')
@@ -436,7 +407,6 @@ function renderFaceUps(){
             return (el.card === lastCol2)
         })
         cards[indexLastCard2].faceup = true;
-
     }
     if(column1El.children.length>0){
         let lastCol1 = column1El.lastChild.getAttribute('data-card')
@@ -444,12 +414,7 @@ function renderFaceUps(){
             return (el.card === lastCol1)
         })
         cards[indexLastCard1].faceup = true;
-
     }
-    
-    // movesEl.textContent = `Moves: ${moves}`
-
-    
     cards.forEach(c=>{
         if(c.faceup === true){
             let cardEl = document.querySelectorAll(`[data-card="${c.card}"]`)
@@ -482,13 +447,10 @@ function expandColums(){
         col.style.tranition = '0s ease-in-out'
     })
     setTimeout(function(){
-
         cardEls.forEach(card=>{
-            
             card.style.marginTop = '-30px'
         })
     },1000)
-
 }
 function renderDeck(){
     let inc = 24;
@@ -512,7 +474,6 @@ function renderColumn7(){
         let cardToMove = document.querySelectorAll('#gameBoard .card')[lastIndex]
         column7El.setAttribute('ondragover','allowDrop(event)')
         column7El.setAttribute('ondrop','drop(event)')
-        
         column7El.appendChild(cardToMove)
     inc--
     }
@@ -599,14 +560,12 @@ function checkForWin(){
     cards.forEach(card=>{
         if(card.faceup === true){
             trues = trues + 1;
-        }else{
-            
+        }else{ 
         }
     })
     if(trues === 52){
         winEl.textContent = `You've Won!`
-    }else{
-       
+    }else{   
     }
 }
 function renderCards(dataSet){
@@ -617,12 +576,9 @@ function renderCards(dataSet){
         cardEl.setAttribute('ondragstart','dragStart(event)')
         cardEl.setAttribute('ondrop','drop(event)')
         cardEl.setAttribute('ondragover','allowDrop(event)')
-
-
         gameBoardEl.appendChild(cardEl)
     })
 }
-
 function shuffleCards(cardsArray){
     for(let i = cardsArray.length - 1; i > 0; i--){
         const j = Math.floor(Math.random() * i)
@@ -634,8 +590,6 @@ function shuffleCards(cardsArray){
 function render(){
     shuffleCards(cards)
 }
-
-
 function fanSound(){
     fanSoundEl = document.createElement('audio')
     fanSoundEl.setAttribute('src','../sounds/cardFan1.wav')
@@ -650,7 +604,6 @@ function placeSound(){
     document.body.appendChild(placeSoundEl)
     return placeSoundEl;
 }
-
 function flipSound(){
     flipSoundEl = document.createElement('audio')
     flipSoundEl.setAttribute('src','../sounds/cardSlide1.wav')
@@ -658,8 +611,6 @@ function flipSound(){
     document.body.appendChild(flipSoundEl)
     return flipSoundEl;
 }
-
-
 function dragStart(evt){
         evt.dataTransfer.setData('target-element',evt.target.getAttribute('data-card'))
 }
@@ -670,7 +621,6 @@ function drop(evt){
     var data = evt.dataTransfer.getData('target-element')
     let tarEl = document.querySelector(`[data-card="${data}"]`)
     try{
-
         if(tarEl.getAttribute('data-card').includes('King')){
             getColumnEls();
             if(evt.target.getAttribute('id').includes('column')){
@@ -689,19 +639,15 @@ function drop(evt){
                 }
             }
             return clickedElements = [];
-            
         }
     }catch(e){
-        console.log('Error at 613' + e)
     }
     clickedElements.push(tarEl,evt.target)
     try{
         if(clickedElements[1].getAttribute('id').includes('column')){
             return clickedElements = [];
         }
-
     }catch(error){
-
     }
     if(clickedElements.length >= 2){
         let objOne = clickedElements[0];
@@ -760,13 +706,10 @@ function drop(evt){
             }
         }else if(findSuite(objOne.getAttribute('data-card')) === findSuite(objTwo.getAttribute('data-card'))){
             if(suiteDecks.includes(objTwo.parentElement.getAttribute('id'))){
-                console.log(cards[objOneIdx].value,cards[objTwoIdx].value)
                 a = cards[objOneIdx].value
                 b = cards[objTwoIdx].value
-                console.log(a-b)
                 if(a-b === -1){
                     if(findSuite(objOne.getAttribute('data-card')) === 'Hearts'){
-                        console.log(`appending ${objOneId} to hearts deck`)
                         objOne.style.marginTop = '0'
                         heartsDeckEl.appendChild(objOne)
                         placeSoundEl.play();
@@ -775,7 +718,6 @@ function drop(evt){
                         checkForWin();
                         return clickedElements = [];
                     }else if(findSuite(objOne.getAttribute('data-card')) === 'Diamonds'){
-                        console.log(`appending ${objOneId} to diamonds deck`)
                         objOne.style.marginTop = '0'
                         diamondsDeckEl.appendChild(objOne)
                         placeSoundEl.play();
@@ -783,12 +725,10 @@ function drop(evt){
                         renderFaceUps();
                         checkForWin();
                         return clickedElements = [];
-                    }else{
-                        console.log(`Failed to place card with data ${objOneId} in a red deck`)
+                    }else{                        
                     }
                 }else if(a-b ===1){
                     if(findSuite(objOne.getAttribute('data-card')) === 'Clubs'){
-                        console.log(`appending ${objOneId} to hearts clubs`)
                         objOne.style.marginTop = '0'
                         clubsDeckEl.appendChild(objOne)
                         placeSoundEl.play();
@@ -797,7 +737,6 @@ function drop(evt){
                         checkForWin();
                         return clickedElements = [];
                     }else if(findSuite(objOne.getAttribute('data-card')) === 'Spades'){
-                        console.log(`appending ${objOneId} to spades deck`)
                         objOne.style.marginTop = '0'
                         spadesDeckEl.appendChild(objOne)
                         placeSoundEl.play();
@@ -806,7 +745,6 @@ function drop(evt){
                         checkForWin();
                         return clickedElements = [];
                     }else{
-                        console.log(`Failed to place card with data ${objOneId} in a black deck`)
                     }
                 }
             }
@@ -817,7 +755,6 @@ function drop(evt){
                 return clickedElements = [];
             }
             if(findSuite(objOne.getAttribute('data-card'))==='Hearts' || findSuite(objOne.getAttribute('data-card'))==='Diamonds'){
-                console.log(`${objOneId} with value ${a} + ${objTwoValue} with value ${b} = ${a+b}`)
                 if(a+b===1){
                     getMatchingEls(objOne)
                     matchingEls.forEach(el=>{
@@ -825,7 +762,6 @@ function drop(evt){
                     })
                     placeSoundEl.play();
                     objOne.style.marginTop = '-70px'
-                    // objTwo.parentElement.appendChild(objOne);
                     moves +=1;
                     renderFaceUps();
                     checkForWin();
@@ -841,7 +777,6 @@ function drop(evt){
                     })
                     placeSoundEl.play();
                     objOne.style.marginTop = '-70px'
-                    // objTwo.parentElement.appendChild(objOne);
                     moves +=1;
                     renderFaceUps();
                     checkForWin();
