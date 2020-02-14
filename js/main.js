@@ -790,8 +790,10 @@ function drop(evt){
             return clickedElements = [];
         }
     }
+    return clickedElements = [];
     checkForWin();
 }
 getColumnEls();
 render();
-renderCards(cards);
+renderCards(cards)
+
