@@ -298,14 +298,12 @@ winEl.style.color = 'white'
 movesEl.style.color = 'white'
 darkModeBtnEl.addEventListener('click',function(evt){
     if(bodyEl.style.backgroundColor === 'white'){
-        gameBoardEl.style.border = 'none'
         winEl.style.color = 'white'
         movesEl.style.color ='white'
         bodyEl.style.backgroundColor = 'black'
         movesHeader.style.color = 'white'
         console.log('Initiating dark mode')
     }else{
-        gameBoardEl.style.border = '1px solid white'
         movesHeader.style.color = 'black'
         winEl.style.color = 'black'
         movesEl.style.color = 'black'
@@ -546,7 +544,6 @@ function renderColumn1(){
 };
 let matchingEls;
 function getMatchingEls(tEl){
-    console.log('getting siblings')
     matchingEls = []
     while(tEl !== tEl.parentElement.lastElementChild){
         matchingEls.push(tEl)
@@ -620,6 +617,7 @@ function allowDrop(evt){
 function drop(evt){
     var data = evt.dataTransfer.getData('target-element')
     let tarEl = document.querySelector(`[data-card="${data}"]`)
+    
     try{
         if(tarEl.getAttribute('data-card').includes('King')){
             getColumnEls();
@@ -643,6 +641,7 @@ function drop(evt){
     }catch(e){
     }
     clickedElements.push(tarEl,evt.target)
+    
     try{
         if(clickedElements[1].getAttribute('id').includes('column')){
             return clickedElements = [];
@@ -664,7 +663,6 @@ function drop(evt){
         if(suiteDecks.includes(clickedElements[1].getAttribute('id'))){
             if(objOneId.includes('A')){
                 if(objOne.getAttribute('data-card').includes('Hearts') && objTwo.getAttribute('id').includes('hearts')){
-                    console.log('Passed')
                     objOne.style.marginTop = '0'
                     heartsDeckEl.appendChild(objOne)
                     placeSoundEl.play();
@@ -673,7 +671,6 @@ function drop(evt){
                     checkForWin();
                     return clickedElements = [];
                 }else if(objOne.getAttribute('data-card').includes('Diamonds') && objTwo.getAttribute('id').includes('diamonds')){
-                    console.log('Passed')
                     objOne.style.marginTop = '0'
                     diamondsDeckEl.appendChild(objOne)
                     placeSoundEl.play();
@@ -682,7 +679,6 @@ function drop(evt){
                     checkForWin();
                     return clickedElements = [];
                 }else if(objOne.getAttribute('data-card').includes('Clubs') && objTwo.getAttribute('id').includes('clubs')){
-                    console.log('Passed')
                     objOne.style.marginTop = '0'
                     clubsDeckEl.appendChild(objOne)
                     placeSoundEl.play();
@@ -691,7 +687,6 @@ function drop(evt){
                     checkForWin();
                     return clickedElements = [];
                 }else if(objOne.getAttribute('data-card').includes('Spades') && objTwo.getAttribute('id').includes('spades')){
-                    console.log('Passed')
                     objOne.style.marginTop = '0'
                     spadesDeckEl.appendChild(objOne)
                     placeSoundEl.play();
@@ -700,7 +695,7 @@ function drop(evt){
                     checkForWin();
                     return clickedElements = [];
                 }else{
-                    moves +=1;
+                    
                     return clickedElements = [];
                 }
             }
@@ -745,6 +740,7 @@ function drop(evt){
                         checkForWin();
                         return clickedElements = [];
                     }else{
+                        
                     }
                 }
             }
